@@ -2,7 +2,7 @@
 <div class="row no-gutters px-1 pt-2 pb-1 mb-3 border-bottom">
   <div class="col-md-5 mb-2">
     <button class="btn btn-sm btn-dark">Semua</button>
-    <button class="btn btn-sm btn-dark">minggu ini</button>
+    <button class="btn btn-sm btn-dark takeCountUr">minggu ini</button>
     <button class="btn btn-sm btn-dark">belum dibaca</button>
   </div>
   <div class="col-md-7 mb-2">
@@ -91,7 +91,3 @@
     <h6 class="text-danger text-center">Laporan tidak ditemukan</h6>
   </div>
 <?php endif; ?>
-
-<pre>
-  <?php print_r($reports); ?>
-</pre>
