@@ -110,7 +110,7 @@ class Report extends CI_Controller {
             </button>
           </div>
           ');
-          redirect('report');
+          redirect('profile');
         }
       }
     }

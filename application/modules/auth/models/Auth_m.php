@@ -23,8 +23,10 @@ class Auth_m extends CI_Model
 
           // cek user role
           if($row->row()->role_id == 3){
+            $this->db->where('is_active',1);
             $menu = $this->db->get_where('menus',['role_id' => $row->row()->role_id])->result();
           }else{
+            $this->db->where('is_active',1);
             $menu = $this->db->get('menus')->result();
           }
 

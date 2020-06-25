@@ -8,7 +8,6 @@ class Auth extends CI_Controller {
     parent::__construct();
     $this->load->model('Auth_m','auth');
   }
-
 	public function index()
 	{
     is_logged_out();
@@ -96,8 +95,7 @@ class Auth extends CI_Controller {
         redirect('auth');
       }
     }
-  }
-  
+  }  
   public function logout()
   {
     $this->session->unset_userdata('email');

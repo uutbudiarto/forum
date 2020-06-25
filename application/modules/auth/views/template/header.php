@@ -13,8 +13,9 @@
 </head>
 <body style="background-color: #EEEF;">
   <nav class="main-nav">
-    <div class="left">
-      <h3 class="brand-name">Rx Forum</h3>
+    <div class="left d-flex align-items-center">
+      <img class="mr-2 rounded-circle" width="30" height="30" src="<?=base_url('assets/icons/favicon.jpeg') ?>" alt="">
+      <h3 class="brand-name">Forum</h3>
     </div>
     <!-- <div class="center"></div> -->
     <div class="right"><h5 class="text-white t-shadow"><?=$title; ?></h5></div>

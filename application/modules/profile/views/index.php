@@ -50,10 +50,10 @@
       </div>
       <div class="card-report-layer"></div>
       <div class="card-act-layer d-none">
-        <a href="<?=base_url('report/read/').$mr->report_id; ?>" class="text-white card-link">
+        <a href="<?=base_url('laporan/get_laporan_by_id/').$mr->report_id; ?>" class="text-white card-link">
           <i class="fas fa-comment-alt"></i> <?=$mr->count_comment; ?>
         </a>
-        <a href="<?=base_url('report/read/').$mr->report_id; ?>" class="text-white card-link">
+        <a href="<?=base_url('laporan/get_laporan_by_id/').$mr->report_id; ?>" class="text-white card-link">
           <i class="fas fa-fw fa-info-circle"></i> Detail
         </a>
       </div>

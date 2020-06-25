@@ -6,6 +6,9 @@
 }
 
 body{
+  background-image: url('../bg/body/1.png');
+}
+.box-comment-list-22{
   background-image: url('../bg/body/2.png');
 }
 .content-wrapper{
@@ -24,7 +27,7 @@ body{
 
 .brand-name{
   font-family: 'Playball', cursive;
-  font-size: 30px;
+  font-size: 25px;
   text-shadow: 1px 2px 1px rgba(0, 0, 0, 0.5);
   color: #FFF;
 }
@@ -45,6 +48,10 @@ body{
 
 .t-shadow{
   text-shadow: 1px 2px 1px rgba(0, 0, 0, 0.2);
+}
+
+.t12{
+  font-size: 12px;
 }
 
 
@@ -104,9 +111,43 @@ span.file-name{
 }
 
 
+.comment-self,
+.comment-other{
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+  margin-bottom: 15px;
+  padding-top: 10px;
+}
+.comment-self{
+  background-color: rgb(245, 253, 255);
+  color: var(--dark);
+  border-radius: 0 20px 20px 20px;
+  margin-left: 10px;
+  border-left: 6px solid rgb(0, 162, 255);
+}
+.comment-other{
+  background-color: rgb(243, 239, 255);
+  color: var(--dark);
+  border-radius: 20px 0 20px 20px;
+  margin-right: 10px;
+  border-right: 6px solid rgb(0, 49, 71);
+}
+.comment-self small.fullname,
+.comment-other small.fullname
+{
+  margin-top: 5px;
+  font-size: 11px;
+  font-weight: bold;
+}
+.comment-self small.time,
+.comment-other small.time{
+  font-size: 10px;
+  font-weight: bold;
+}
+
+
+
 
 @media (min-width: 320px) {
-
 
   .main-nav
   {

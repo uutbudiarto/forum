@@ -8,8 +8,6 @@
   </div>
 </div>
 
-
-
 <div class="card border-0 my-2">
   <div class="row no-gutters">
     <div class="col-md-12 col-12">

@@ -16,8 +16,9 @@
   </form>
   </div>
 </div>
-
+<input type="hidden" class="d-none" name="laporan_key" id="laporan_key" value="<?=$this->session->userdata('role_id'); ?>">
 <div class="card rounded-0 mx-1 mb-2 card_list_laporan"></div>
+
 
 <script type="text/javascript">
 function getr() {
@@ -25,6 +26,7 @@ function getr() {
     'url': '<?=base_url()?>laporan/get_laporan/',
     'success':function (res) {
       if (res) {
+        let laporan_key = $('#laporan_key').val();
         let html ='';
         const data = JSON.parse(res);
         data.forEach(d => {
@@ -40,7 +42,17 @@ function getr() {
               <div class="card-body">
                 <!-- kondisi status read sementara -->
                   <div class="indicator-read">
-                    <span class="indicator-owner text-danger">Belum dibaca</span>
+                  ${(()=>{
+                    if(laporan_key == 1){
+                      if(d.is_owner_readed == 0){
+                       return `<span class="indicator-owner text-danger">Belum dibaca</span>`;
+                      }else{return ``;}
+                    }else{
+                      if(d.is_manager_readed == 0){
+                        return `<span class="indicator-manager text-danger">Belum dibaca</span>`;
+                      }else{return ``;}
+                    }
+                  })()}
                   </div>
                 <!-- kondisi status read sementara -->
                 <h5 class="card-title">${d.fullname}</h5>
@@ -55,20 +67,14 @@ function getr() {
                   return ``;
                 }
               })()}
-                <a href="" class="btn btn-dark rounded-0 btn-sm">
+                <a href="javascript:void(0)" class="btn btn-dark rounded-0 btn-sm btnReadReport" data-id="${d.report_id}">
                   <i class="fas fa-comment-alt"></i>
                   <span class="badge badge-sucsess">${d.count_comment}</span>
                 </a>
               </div>
-            </div>
-          </div>      
-          <div class="text-right">
-            <div class="btn-group dropup">
-              <button class="btn" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-ellipsis-h"></i>
-              </button>
-              <div class="dropdown-menu border-0 shadow" aria-labelledby="dropdownMenuButton">
-                <a class="dropdown-item text-secondary" href="#"><i class="fas fa-trash-alt"></i> Hapus</a>
-                <a class="dropdown-item text-secondary" href="#"><i class="fas fa-pencil-alt"></i> Ubah</a>
+              <div class="text-right pr-2">
+                <a href="#" class="t12"><i class="fas fa-edit text-secondary"></i></a>
+                <a href="#" class="t12"><i class="fas fa-trash-alt text-danger"></i></a>
               </div>
             </div>
           </div>
@@ -76,15 +82,21 @@ function getr() {
           `;
         });
         $('.card_list_laporan').html(html);
-        // console.log(data);
+      }else{
+        $('.card_list_laporan').html(`
+          <p class="text-center text-danger">Laporan tidak diemukan</p>
+        `);
       }
     }
   }) 
 }
-
 getr()
-
 setInterval(() => {
   getr()
 }, 1000);
+
+$('body').on('click','.btnReadReport',function () {
+  const idReport = $(this).data('id');
+  window.location.href ='<?=base_url() ?>laporan/get_laporan_by_id/'+idReport
+})
 </script>
