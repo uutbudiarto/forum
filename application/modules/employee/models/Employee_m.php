@@ -5,6 +5,7 @@ class Employee_m extends CI_Model {
   public function getAllUser()
   {
     $this->db->select('
+      users.id,
       users.email,
       users.phone,
       users.fullname,

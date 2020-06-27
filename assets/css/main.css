@@ -116,6 +116,8 @@ span.file-name{
   box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
   margin-bottom: 15px;
   padding-top: 10px;
+  word-wrap: break-word;
+  box-sizing: content-box;
 }
 .comment-self{
   background-color: rgb(245, 253, 255);
@@ -266,7 +268,7 @@ span.file-name{
     display: none;
   }
   .main-nav .right{
-    flex: 2;
+    flex: 3;
     display: flex;
     align-items: center;
     justify-content: flex-end;
@@ -510,11 +512,11 @@ span.file-name{
     flex:1;
   }
   .main-nav .center{
-    flex:1;
+    flex:2;
     display: flex;
   }
   .main-nav .right{
-    flex:1;
+    flex:3;
   }
 
   .card-profile .profile-img{

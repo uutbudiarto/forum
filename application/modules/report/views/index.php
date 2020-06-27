@@ -7,14 +7,20 @@
   </div>
   <div class="col-md-7 mb-2">
   <?= form_open('report/filter',"id='form_report'"); ?>
-    <div class="input-group input-group-sm">
-      <input type="date" name="start_date" class="form-control">
-      <input type="date" name="end_date" class="form-control">
-      <div class="input-group-append">
-        <button type="submit" class="btn btn-dark">Cari</button>
+    <div class="row">
+      <div class="col">
+        <label for="start_date">Dari</label>
+        <input type="date" class="form-control form-control-sm" name="start_date" id="start_date">
+      </div>
+      <div class="col">
+        <label for="end_date">Sampai</label>
+        <input type="date" class="form-control form-control-sm" name="end_date" id="end_date">
       </div>
     </div>
-  </form>
+    <div class="text-right mt-2">
+      <button class="btn btn-sm btn-primary">Filter</button>
+    </div>
+  <?= form_close(); ?>
   </div>
 </div>
 
@@ -91,3 +97,13 @@
     <h6 class="text-danger text-center">Laporan tidak ditemukan</h6>
   </div>
 <?php endif; ?>
+
+
+<!-- <script type="text/javascript">
+  $('#start_date').on('focus',function () {
+    $(this).attr('type','date');
+  });
+  $('#start_date').on('focusout',function () {
+    $(this).attr('type','text');
+  });
+</script> -->

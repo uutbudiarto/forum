@@ -13,5 +13,16 @@
       <span class="d-block"><?=$emp->position_name; ?></span>
     </div>
   </div>
+  <?php if($this->session->userdata('role_id') != 3) : ?>
+    <?php if($this->session->userdata('email') != $emp->email) : ?>
+    <div class="text-right m-2">
+      <a href="<?=base_url('chat/index/'.$emp->id); ?>" class="btn btn-primary rounded-0"><i class="fas fa-comment-alt"></i> Chat</a>
+    </div>
+    <?php else : ?>
+      <div class="text-right m-2">
+        <button class="btn btn-secondary rounded-0" disabled><i class="fas fa-comment-alt"></i> Chat</button>
+      </div>
+    <?php endif; ?>
+  <?php endif; ?>
   <hr>
 <?php endforeach; ?>

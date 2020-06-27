@@ -13,7 +13,8 @@ class Home extends CI_Controller {
       is_logged_in();
       $data = [
         'title' => 'Home',
-        'all_users' => $this->home->getAllUser()
+        'all_users' => $this->home->getAllUser(),
+        'chat_root' => $this->home->getChatRoot()
       ];
       $this->load->view('templates/header',$data);
       $this->load->view('index',$data);

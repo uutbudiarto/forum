@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Login | FORUM</title>
+  <link rel="shortcut icon" href="<?=base_url('assets/icons/favicon.jpeg') ?>" type="image/x-icon">
   <link href="https://fonts.googleapis.com/css2?family=Playball&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="<?=base_url()?>assets/fontawesome/css/all.min.css">
 

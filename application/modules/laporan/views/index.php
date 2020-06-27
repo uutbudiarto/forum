@@ -1,19 +1,25 @@
 <div class="row no-gutters px-1 pt-2 pb-1 mb-3 border-bottom">
-  <div class="col-md-5 mb-2">
+  <div class="col-md-5">
     <button class="btn btn-sm btn-dark">Semua</button>
     <button class="btn btn-sm btn-dark takeCountUr">minggu ini</button>
     <button class="btn btn-sm btn-dark">belum dibaca</button>
   </div>
   <div class="col-md-7 mb-2">
-  <?= form_open('report/filter',"id='form_report'"); ?>
-    <div class="input-group input-group-sm">
-      <input type="date" name="start_date" class="form-control">
-      <input type="date" name="end_date" class="form-control">
-      <div class="input-group-append">
-        <button type="submit" class="btn btn-dark">Cari</button>
+    <?= form_open('report/filter',"id='form_report'"); ?>
+      <div class="row">
+        <div class="col">
+          <label for="start_date">Dari</label>
+          <input type="date" class="form-control form-control-sm" name="start_date" id="start_date">
+        </div>
+        <div class="col">
+          <label for="end_date">Sampai</label>
+          <input type="date" class="form-control form-control-sm" name="end_date" id="end_date">
+        </div>
       </div>
-    </div>
-  </form>
+      <div class="text-right mt-2">
+        <button class="btn btn-sm btn-primary">Filter</button>
+      </div>
+    <?= form_close(); ?>
   </div>
 </div>
 <input type="hidden" class="d-none" name="laporan_key" id="laporan_key" value="<?=$this->session->userdata('role_id'); ?>">

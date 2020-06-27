@@ -112,6 +112,7 @@ class Report_m extends CI_Model {
     if ($roleId == 1 ) {
       $this->db->select('
       reports.id as report_id,
+      users.id as user_id,
       users.fullname,
       users.image as user_image,
       reports.report_text,
@@ -119,6 +120,9 @@ class Report_m extends CI_Model {
       reports.report_file,
       reports.time_created,
       reports.count_comment,
+      reports.count_comment_owner,
+      reports.count_comment_manager,
+      reports.count_comment_user,
       reports.is_active,
       reports.is_owner_readed,
       reports.is_manager_readed,
@@ -133,6 +137,7 @@ class Report_m extends CI_Model {
     }else{
       $this->db->select('
       reports.id as report_id,
+      users.id as user_id,
       users.fullname,
       users.image as user_image,
       reports.report_text,
@@ -140,6 +145,9 @@ class Report_m extends CI_Model {
       reports.report_file,
       reports.time_created,
       reports.count_comment,
+      reports.count_comment_owner,
+      reports.count_comment_manager,
+      reports.count_comment_user,
       reports.is_active,
       reports.is_owner_readed,
       reports.is_manager_readed,
@@ -154,8 +162,6 @@ class Report_m extends CI_Model {
       return $this->db->get()->result();
     }
   }
-
-
 
   // komentar
   public function getCommentByReportId($report_id)

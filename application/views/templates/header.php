@@ -29,7 +29,7 @@
   <nav class="main-nav">
     <div class="left d-flex align-items-center">
       <img class="mr-2 rounded-circle" width="30" height="30" src="<?=base_url('assets/icons/favicon.jpeg') ?>" alt="">
-      <h3 class="brand-name">Forum</h3>
+      <h3 class="brand-name d-md-block d-none">Forum</h3>
     </div>
     <div class="center">
         <input type="text" class="form-control form-control-sm text-center" placeholder="cari...">
@@ -42,7 +42,6 @@
           </a>
         <?php endforeach; ?>
       </div>
-
       <?php if($this->session->userdata('role_id') == 3): ?>
         <a href="<?=base_url('report/create/'); ?>" class="text-white card-link ml-3"><i class="fas fa-pencil-alt border p-1"></i></a>
       <?php endif; ?>
