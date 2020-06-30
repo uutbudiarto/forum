@@ -13,7 +13,8 @@ class Chat extends CI_Controller {
     $data = [
       'title' => 'Chat',
       'chat_root' => $this->chat->createChatRoot($receiver),
-      'user_receiver' => $this->chat->getUserReceiver($receiver)
+      'user_receiver' => $this->chat->getUserReceiver($receiver),
+      'reset_count_emp' => $this->chat->resetCountAdm($receiver)
     ];
     $this->load->view('templates/header',$data);
     $this->load->view('index',$data);
@@ -29,7 +30,8 @@ class Chat extends CI_Controller {
       'time_created' => time(),
       'created_at' => date('Y-m-d',time()),
       'updated_at' => date('Y-m-d',time()),
-      'is_active' => 1
+      'is_readed' => 0,
+      'is_active' => 1,
     ];
     $result = $this->chat->postChat($data);
     if ($result) {
@@ -51,7 +53,8 @@ class Chat extends CI_Controller {
     is_logged_in();
     $data = [
       'title' => 'Chat',
-      'chat_root_id' => $chat_root_id
+      'chat_root_id' => $chat_root_id,
+      'reset_count_emp' => $this->chat->resetCountEmp($chat_root_id)
       
     ];
     $this->load->view('templates/header',$data);

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 22, 2020 at 01:31 PM
+-- Generation Time: Jun 30, 2020 at 10:32 AM
 -- Server version: 10.4.11-MariaDB
 -- PHP Version: 7.2.30
 
@@ -44,6 +44,85 @@ CREATE TABLE `announcement` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `chat`
+--
+
+CREATE TABLE `chat` (
+  `id` int(11) NOT NULL,
+  `chat_root_id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `chat_text` text NOT NULL,
+  `time_created` varchar(100) NOT NULL,
+  `created_at` varchar(100) NOT NULL,
+  `updated_at` varchar(100) NOT NULL,
+  `deleted_at` varchar(100) NOT NULL,
+  `is_readed` int(11) NOT NULL,
+  `is_active` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `chat`
+--
+
+INSERT INTO `chat` (`id`, `chat_root_id`, `user_id`, `chat_text`, `time_created`, `created_at`, `updated_at`, `deleted_at`, `is_readed`, `is_active`) VALUES
+(18, 11, 26, 'halloo mas nadim', '1593195001', '2020-06-27', '2020-06-27', '', 0, 1),
+(19, 11, 28, 'O iya hallo pak', '1593195015', '2020-06-27', '2020-06-27', '', 0, 1),
+(20, 11, 28, 'Bisa dibantu pak', '1593195025', '2020-06-27', '2020-06-27', '', 0, 1),
+(21, 11, 26, 'ooo  enggak tes doang, kabar jos kan', '1593195047', '2020-06-27', '2020-06-27', '', 0, 1),
+(22, 11, 28, 'Ooo jos pak', '1593195053', '2020-06-27', '2020-06-27', '', 0, 1),
+(23, 14, 25, 'test', '1593491811', '2020-06-30', '2020-06-30', '', 0, 1),
+(24, 14, 25, 'hitung 1', '1593492892', '2020-06-30', '2020-06-30', '', 0, 1),
+(25, 15, 25, 'test hitung 1', '1593492957', '2020-06-30', '2020-06-30', '', 0, 1),
+(26, 14, 25, 'hitung 2', '1593493212', '2020-06-30', '2020-06-30', '', 0, 1),
+(27, 14, 27, 'hitung jawab 1', '1593495280', '2020-06-30', '2020-06-30', '', 0, 1),
+(28, 14, 25, 'test1', '1593495315', '2020-06-30', '2020-06-30', '', 0, 1),
+(29, 14, 27, 'jawab 2', '1593495348', '2020-06-30', '2020-06-30', '', 0, 1),
+(30, 11, 26, 'test1', '1593498306', '2020-06-30', '2020-06-30', '', 0, 1),
+(31, 11, 28, '1 balasan', '1593498550', '2020-06-30', '2020-06-30', '', 0, 1),
+(32, 17, 26, 'test chat ke waw', '1593499074', '2020-06-30', '2020-06-30', '', 0, 1),
+(33, 11, 28, '2balsan', '1593499104', '2020-06-30', '2020-06-30', '', 0, 1),
+(34, 17, 24, '1 balasan dari waw', '1593499164', '2020-06-30', '2020-06-30', '', 0, 1),
+(35, 17, 26, '1', '1593500407', '2020-06-30', '2020-06-30', '', 0, 1),
+(36, 17, 24, 'ok1', '1593500447', '2020-06-30', '2020-06-30', '', 0, 1),
+(37, 17, 24, 'balas lagi', '1593501106', '2020-06-30', '2020-06-30', '', 0, 1),
+(38, 17, 26, 'haloo', '1593501240', '2020-06-30', '2020-06-30', '', 0, 1),
+(39, 17, 26, 'pye kabare', '1593501271', '2020-06-30', '2020-06-30', '', 0, 1),
+(40, 14, 27, 'hallo pak jokowi\r\nudah baikan blm ama prabowo', '1593502967', '2020-06-30', '2020-06-30', '', 0, 1),
+(41, 14, 25, 'ooo kita ma temen lama, dia guru saya malahan wkwkwk', '1593503059', '2020-06-30', '2020-06-30', '', 0, 1);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `chat_root`
+--
+
+CREATE TABLE `chat_root` (
+  `id` int(11) NOT NULL,
+  `from_user` int(11) NOT NULL,
+  `to_user` int(11) NOT NULL,
+  `time_created` varchar(128) NOT NULL,
+  `created_at` varchar(128) NOT NULL,
+  `updated_at` varchar(128) NOT NULL,
+  `deleted_at` varchar(128) DEFAULT NULL,
+  `is_active` int(11) NOT NULL,
+  `count_chat_adm` int(11) DEFAULT NULL,
+  `count_chat_emp` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `chat_root`
+--
+
+INSERT INTO `chat_root` (`id`, `from_user`, `to_user`, `time_created`, `created_at`, `updated_at`, `deleted_at`, `is_active`, `count_chat_adm`, `count_chat_emp`) VALUES
+(11, 26, 28, '1593194990', '2020-06-27', '2020-06-27', NULL, 1, 0, 0),
+(12, 25, 26, '1593483779', '2020-06-30', '2020-06-30', NULL, 1, 0, 0),
+(14, 25, 27, '1593486889', '2020-06-30', '2020-06-30', NULL, 1, 0, 0),
+(16, 25, 24, '1593493267', '2020-06-30', '2020-06-30', NULL, 1, 0, 0),
+(17, 26, 24, '1593499064', '2020-06-30', '2020-06-30', NULL, 1, 0, 0);
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `comment_reports`
 --
 
@@ -66,32 +145,12 @@ CREATE TABLE `comment_reports` (
 --
 
 INSERT INTO `comment_reports` (`id`, `comment_text`, `report_id`, `user_id`, `role_id`, `like_indicator`, `time_created`, `created_at`, `updated_at`, `deleted_at`, `is_active`) VALUES
-(41, 'Test Balasan pertama dari user level 1', 24, 10, 1, 5, '1592763011', '2020-06-22', '2020-06-22', NULL, 1),
-(42, 'Balasan dari user level 3 yang punya laporan', 24, 12, 3, 5, '1592763045', '2020-06-22', '2020-06-22', NULL, 1),
-(43, 'Ini Balasan atau komentar dari user level 2 ke yang pertama', 24, 11, 2, 5, '1592763119', '2020-06-22', '2020-06-22', NULL, 1),
-(44, 'Coba balas dan cek apakah user lain bisa melihat', 24, 10, 1, 5, '1592763246', '2020-06-22', '2020-06-22', NULL, 1),
-(45, 'Dan sepertinya tidak wkwkwk', 24, 10, 1, 5, '1592763258', '2020-06-22', '2020-06-22', NULL, 1),
-(46, 'kalau gitu suruh tunggu lampu biru', 25, 10, 1, 5, '1592794570', '2020-06-22', '2020-06-22', NULL, 1),
-(47, 'Yah ok pak ..siap ', 25, 12, 3, 5, '1592794657', '2020-06-22', '2020-06-22', NULL, 1),
-(48, 'ok ok', 25, 10, 1, 5, '1592794734', '2020-06-22', '2020-06-22', NULL, 1),
-(49, 'TESTSES', 25, 10, 1, 5, '1592795145', '2020-06-22', '2020-06-22', NULL, 1),
-(50, 'Tapi utk Rencana lampunya jadi di pasang Pak ?', 25, 12, 3, 5, '1592795178', '2020-06-22', '2020-06-22', NULL, 1),
-(51, 'Tes tes ', 25, 12, 3, 5, '1592795802', '2020-06-22', '2020-06-22', NULL, 1),
-(52, '', 25, 12, 3, 5, '1592795859', '2020-06-22', '2020-06-22', NULL, 1),
-(53, 'Ini dari admin2', 26, 11, 2, 5, '1592796152', '2020-06-22', '2020-06-22', NULL, 1),
-(54, 'ok', 26, 10, 1, 5, '1592796162', '2020-06-22', '2020-06-22', NULL, 1),
-(55, 'Ini admin 2', 25, 11, 2, 5, '1592796287', '2020-06-22', '2020-06-22', NULL, 1),
-(56, 'ffsdfsdfsdfdsf', 27, 10, 1, 5, '1592796642', '2020-06-22', '2020-06-22', NULL, 1),
-(57, 'Okokkokkvzgzg', 27, 11, 2, 5, '1592796655', '2020-06-22', '2020-06-22', NULL, 1),
-(58, 'Test komentar lagi', 27, 10, 1, 5, '1592801024', '2020-06-22', '2020-06-22', NULL, 1),
-(59, 'jhcxzjkcxzh', 27, 10, 1, 5, '1592801215', '2020-06-22', '2020-06-22', NULL, 1),
-(60, 'Balasan 1', 28, 10, 1, 5, '1592807390', '2020-06-22', '2020-06-22', NULL, 1),
-(61, 'Balasan dari user', 28, 12, 3, 5, '1592808252', '2020-06-22', '2020-06-22', NULL, 1),
-(62, 'Tak balas dulu', 28, 12, 3, 5, '1592809366', '2020-06-22', '2020-06-22', NULL, 1),
-(63, 'ok indikator diuser hilang di owner tambah', 28, 10, 1, 5, '1592809431', '2020-06-22', '2020-06-22', NULL, 1),
-(64, 'hjhjhj', 29, 10, 1, 5, '1592825029', '2020-06-22', '2020-06-22', NULL, 1),
-(65, 'Ysgsgwvhshdb', 29, 12, 3, 5, '1592825040', '2020-06-22', '2020-06-22', NULL, 1),
-(66, 'Hallooo shsgsush', 29, 12, 3, 5, '1592825073', '2020-06-22', '2020-06-22', NULL, 1);
+(188, 'komen', 41, 25, 1, 5, '1593157808', '2020-06-26', '2020-06-26', NULL, 1),
+(189, 'komen2', 41, 25, 1, 5, '1593157827', '2020-06-26', '2020-06-26', NULL, 1),
+(190, 'hallo prapto', 42, 25, 1, 5, '1593158034', '2020-06-26', '2020-06-26', NULL, 1),
+(191, 'y gan', 42, 27, 3, 5, '1593158044', '2020-06-26', '2020-06-26', NULL, 1),
+(192, 'ok gan', 42, 25, 1, 5, '1593158050', '2020-06-26', '2020-06-26', NULL, 1),
+(193, 'cewe cakep tuh gan\r\n', 42, 27, 3, 5, '1593158061', '2020-06-26', '2020-06-26', NULL, 1);
 
 -- --------------------------------------------------------
 
@@ -115,9 +174,10 @@ CREATE TABLE `menus` (
 
 INSERT INTO `menus` (`id`, `menu_title`, `menu_name`, `menu_url`, `menu_icon`, `role_id`, `is_active`) VALUES
 (1, 'Home', 'home', 'home', 'home.png', 3, 1),
-(2, 'Report', 'report', 'report', 'report.png', 1, 1),
+(2, 'Report', 'report', 'report', 'report.png', 1, 0),
 (3, 'Employee', 'employee', 'employee', 'employee.png', 3, 1),
-(4, 'Profile', 'profile', 'profile', 'profile.png', 3, 1);
+(4, 'Profile', 'profile', 'profile', 'profile.png', 3, 1),
+(5, 'Report', 'laporan', 'laporan', 'report.png', 1, 1);
 
 -- --------------------------------------------------------
 
@@ -190,12 +250,8 @@ CREATE TABLE `reports` (
 --
 
 INSERT INTO `reports` (`id`, `user_id`, `report_text`, `report_image`, `report_file`, `time_created`, `created_at`, `updated_at`, `deleted_at`, `is_active`, `is_owner_readed`, `is_manager_readed`, `count_comment`, `count_comment_manager`, `count_comment_owner`, `count_comment_user`) VALUES
-(24, 12, 'Test buat laporan dari user level 3 ke 1. Ini laporan pertama yang d buat', 'default.png', 'default.txt', '1592762944', '2020-06-22', '2020-06-22', NULL, 1, 1, 1, 5, 0, 0, 0),
-(25, 12, 'Saya mau buat laporan tentang kejadian di lampu merah ..ada orang nyebrang sembarangan ehh ..katanya gak pakae celana dalam .', 'default.png', 'default.txt', '1592794294', '2020-06-22', '2020-06-22', NULL, 1, 1, 1, 8, 0, 0, 0),
-(26, 13, 'Laporan laporan lampu kuning', 'default.png', 'default.txt', '1592794489', '2020-06-22', '2020-06-22', NULL, 1, 1, 1, 2, 0, 0, 0),
-(27, 11, 'Laporan dari admin dua', 'default.png', 'default.txt', '1592796467', '2020-06-22', '2020-06-22', NULL, 1, 1, 1, 4, 0, 0, 0),
-(28, 12, 'Halloooooooo report', 'default.png', 'default.txt', '1592806787', '2020-06-22', '2020-06-22', NULL, 1, 1, 0, 4, 4, 0, 0),
-(29, 12, 'Laporan test', 'default.png', 'default.txt', '1592825010', '2020-06-22', '2020-06-22', NULL, 1, 1, 0, 3, 3, 0, 0);
+(41, 26, '1. Laporan1, 2.Laporan Point 2', 'default.png', 'default.txt', '1593141468', '2020-06-26', '2020-06-26', NULL, 1, 1, 0, 2, 2, 0, 2),
+(42, 27, 'ah ah ah ah ah ah ah', 'default.png', 'default.txt', '1593157985', '2020-06-26', '2020-06-26', NULL, 1, 1, 0, 4, 4, 1, 0);
 
 -- --------------------------------------------------------
 
@@ -236,10 +292,11 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `email`, `phone`, `password`, `fullname`, `image`, `position_id`, `role_id`, `date_created`, `created_at`, `updated_at`, `deleted_at`, `is_active`) VALUES
-(10, 'userlevel1@gmail.com', '089688008088', '$2y$10$K/K2LWJXb/FDQ2F2RE5rAu4IpiRrc3gmipies.4hu6WRjh6HO9mOi', 'Jhon Doe user level 1', 'donatur-1.png', 1, 1, '2020/06/22', '1592762423', '1592762423', NULL, 1),
-(11, 'userlevel2@gmail.com', '089677007070', '$2y$10$EhueK67BIOAWsQ5xKYhruu2m7KEsvdpyR7fCg9OeUPaMZP619lRIm', 'Abraham userlevel2', 'default.png', 2, 2, '2020/06/22', '1592762559', '1592762559', NULL, 1),
-(12, 'userlevel3-1@gmail.com', '089666006060', '$2y$10$8zvpuCtQeEdI3rI3VngO5Oc.5zog/lYfR0KbI.3jgj8Z4GAnxSqXe', 'Joni Gunawan userlevel3ke1', 'IMG_20200427_182619.jpg', 3, 3, '2020/06/22', '1592762659', '1592762659', NULL, 1),
-(13, 'userlevel3-2@gmail.com', '089655005050', '$2y$10$LXZo/OUHhTCVzM3gmEPO4Or7BaAX39.ZAdQB.0sRpo2Gj77rvPxk.', 'Wijayanto userlevel3ke2', 'donatur-21.png', 9, 3, '2020/06/22', '1592762760', '1592762760', NULL, 1);
+(24, 'forum_adm@gmail.com', '0892220089090', '$2y$10$Pdwf2QQCgtYDGo41sGrG/eM7XGGB4chVrYhpBYK1VBW24Qojkq8ty', 'Admin Tester', 'logo.jpg', 9, 1, '2020/06/26', '1593140451', '1593140451', NULL, 1),
+(25, 'role1@gmail.com', '089600000001', '$2y$10$0yuY93Wzaf9T1WcGfrdpMeZ1hvJ3qwjQ6P2vVwjVxSmqk.TZp7uq2', 'Jokowi', 'default.png', 1, 1, '1593141217', '2020-06-26', '2020-06-26', NULL, 1),
+(26, 'role2@gmail.com', '089600000002', '$2y$10$6aK/6RWGFwAg4A3C1Q8WqOfRbnr4/YHOQuMuEYPGtWm9xtxqnCar.', 'Makruf Amin', 'default.png', 2, 2, '1593141258', '2020-06-26', '2020-06-26', NULL, 1),
+(27, 'role3-1@gmail.com', '089600000003', '$2y$10$geKrlBfV6z7uwEPA2xTAae4l9Lw4dD.voAExQg0Gh3oAhzX76V/ou', 'Mahfud', 'aycrl4be_400x400.jpg', 3, 3, '1593141295', '2020-06-26', '2020-06-26', NULL, 1),
+(28, 'role3-2@gmail.com', '089600000004', '$2y$10$mGTIzoUnc.Xdz0fFgZ6V4O/op/eYVrg4ZGMiSZ4/FNyNUzFaDVH6S', 'Nadim', 'default.png', 5, 3, '1593141342', '2020-06-26', '2020-06-26', NULL, 1);
 
 --
 -- Indexes for dumped tables
@@ -249,6 +306,18 @@ INSERT INTO `users` (`id`, `email`, `phone`, `password`, `fullname`, `image`, `p
 -- Indexes for table `announcement`
 --
 ALTER TABLE `announcement`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `chat`
+--
+ALTER TABLE `chat`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `chat_root`
+--
+ALTER TABLE `chat_root`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -304,16 +373,28 @@ ALTER TABLE `announcement`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
+-- AUTO_INCREMENT for table `chat`
+--
+ALTER TABLE `chat`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=42;
+
+--
+-- AUTO_INCREMENT for table `chat_root`
+--
+ALTER TABLE `chat_root`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+
+--
 -- AUTO_INCREMENT for table `comment_reports`
 --
 ALTER TABLE `comment_reports`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=67;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=194;
 
 --
 -- AUTO_INCREMENT for table `menus`
 --
 ALTER TABLE `menus`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `position`
@@ -331,7 +412,7 @@ ALTER TABLE `readed_status`
 -- AUTO_INCREMENT for table `reports`
 --
 ALTER TABLE `reports`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=43;
 
 --
 -- AUTO_INCREMENT for table `role`
@@ -343,7 +424,7 @@ ALTER TABLE `role`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

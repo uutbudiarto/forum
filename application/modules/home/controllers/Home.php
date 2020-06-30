@@ -14,7 +14,8 @@ class Home extends CI_Controller {
       $data = [
         'title' => 'Home',
         'all_users' => $this->home->getAllUser(),
-        'chat_root' => $this->home->getChatRoot()
+        'chat_root' => $this->home->getChatRoot(),
+        'get_chat_fa' => $this->home->getChatFA()
       ];
       $this->load->view('templates/header',$data);
       $this->load->view('index',$data);

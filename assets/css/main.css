@@ -24,6 +24,16 @@ body{
 	scrollbar-width:thin;
 }
 
+.chat-by{
+  cursor: pointer;
+  border-bottom: 1px solid #DDD;
+  transition: all ease-in .1s;
+}
+.chat-by:hover{
+  transform: translate(-3px,-3px);
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+}
+
 
 .brand-name{
   font-family: 'Playball', cursive;
@@ -443,12 +453,22 @@ span.file-name{
     justify-content: center;
     outline: none;
   }
+
+
   .box-all-users .box-user img{
     width: 80px;
     height: 80px;
     border: 2px solid var(--primary);
     border-radius: 100px;
+    transition: all ease-in .2s;
   }
+  .box-all-users .box-user img:hover{
+    cursor: pointer;
+    box-shadow: 0 5px 5px rgba(0, 0, 0, 0.5);
+    transform: translateY(-5px);
+  }
+
+
   .box-all-users .box-user span{
     font-size: 12px;
     height: 20px;

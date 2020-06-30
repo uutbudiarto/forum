@@ -15,7 +15,9 @@ class Chat_m extends CI_Model {
         'time_created' => time(),
         'created_at' => date('Y-m-d',time()),
         'updated_at' => date('Y-m-d',time()),
-        'is_active' => 1
+        'is_active' => 1,
+        'count_chat_adm' => 0,
+        'count_chat_emp' => 0
       ];
       $this->db->insert('chat_root',$data);
       if($this->db->affected_rows() > 0){
@@ -36,7 +38,16 @@ class Chat_m extends CI_Model {
   {
     $this->db->insert('chat',$data);
     if($this->db->affected_rows() > 0){
-      return true;
+      $cr = $this->db->get_where('chat_root',['id' => $data['chat_root_id']])->row();
+      $count_adm = $cr->count_chat_adm;
+      $new_count = $count_adm + 1;
+
+      $this->db->set('count_chat_adm', $new_count);
+      $this->db->where('id',$data['chat_root_id']);
+      $this->db->update('chat_root');
+      if($this->db->affected_rows > 0){
+        return true;
+      }
     }
   }
   public function getChatByRootChatId($chat_root_id)
@@ -59,11 +70,42 @@ class Chat_m extends CI_Model {
     $this->db->where('chat_root_id',$chat_root_id);
     return $this->db->get()->result();
   }
+
+  public function resetCountEmp($chat_root_id)
+  {
+    $this->db->set('count_chat_adm',0);
+    $this->db->where('id',$chat_root_id);
+    $this->db->update('chat_root');
+  }
+  public function resetCountAdm($receiver)
+  {
+    $from_user = $this->session->userdata('user_id');
+    $to_user = $receiver;
+
+    $this->db->set('count_chat_emp',0);
+    $this->db->where('from_user',$from_user);
+    $this->db->where('to_user',$to_user);
+    $this->db->update('chat_root');
+
+  }
+
+
+
+
   public function userReply($data)
   {
     $this->db->insert('chat',$data);
     if($this->db->affected_rows() > 0){
-      return true;
+      $cr = $this->db->get_where('chat_root',['id' => $data['chat_root_id']])->row();
+      $count_emp = $cr->count_chat_emp;
+      $new_count = $count_emp + 1;
+
+      $this->db->set('count_chat_emp', $new_count);
+      $this->db->where('id',$data['chat_root_id']);
+      $this->db->update('chat_root');
+      if($this->db->affected_rows > 0){
+        return true;
+      }
     }else{
       return false;
     }

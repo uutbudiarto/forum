@@ -8,8 +8,6 @@ class Home_m extends CI_Model {
   }
   public function getChatRoot()
   {
-    
-    // return $this->db->get_where('chat_root',['to_user' => $this->session->userdata('user_id')])->result();
     $this->db->select('
       chat_root.id as chat_root_id,
       chat_root.from_user,
@@ -17,6 +15,8 @@ class Home_m extends CI_Model {
       users.fullname as from,
       users.image,
       chat_root.to_user,
+      chat_root.count_chat_adm,
+      chat_root.count_chat_emp,
       chat_root.time_created,
     ');
     $this->db->from('chat_root');
@@ -25,14 +25,27 @@ class Home_m extends CI_Model {
     $this->db->where('to_user',$this->session->userdata('user_id'));
     return $this->db->get()->result();
 
-    // [id] => 1
-    // [from_user] => 25
-    // [to_user] => 24
-    // [time_created] => 1593177491
-    // [created_at] => 2020-06-26
-    // [updated_at] => 2020-06-26
-    // [deleted_at] => 
-    // [is_active] => 1
+  }
+
+  public function getChatFA()
+  {
+    // cek role id login
+    $user_from = $this->session->userdata('user_id');
+
+    $this->db->select('
+      chat_root.id,
+      chat_root.from_user,
+      chat_root.to_user,
+      users.fullname as replay_from_emp,
+      chat_root.time_created,
+      chat_root.count_chat_emp
+    ');
+    $this->db->from('chat_root');
+    $this->db->join('users','users.id = chat_root.to_user');
+    $this->db->where('chat_root.from_user',$user_from);
+    $this->db->where('chat_root.count_chat_emp !=',0);
+    $chatunread = $this->db->get()->result();
+    return $chatunread;
 
   }
 }
