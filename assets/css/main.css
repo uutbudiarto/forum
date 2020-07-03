@@ -157,6 +157,17 @@ span.file-name{
 }
 
 
+#ann_text{
+  height: 50px;
+  transition: all ease-in-out .3s;
+  background-color: #fafafa;
+}
+#ann_text.onfocused{
+  height: 250px;
+  background-color: #fff;
+}
+
+
 
 
 @media (min-width: 320px) {
@@ -276,15 +287,16 @@ span.file-name{
   .main-nav .center{
     flex:1;
     display: none;
+    
   }
   .main-nav .right{
-    flex: 3;
+    flex: 8;
     display: flex;
     align-items: center;
     justify-content: flex-end;
   }
   .menu-item .menu-link{
-    margin-left: 20px;
+    margin-left: 10px;
     color: var(--light);
     text-decoration: none !important;
     text-align: center;

@@ -13,10 +13,67 @@ class Laporan extends CI_Controller {
     is_logged_in();
     $data = [
       'title' => 'Laporan',
+      'emp' => $this->laporan->getEmp()
     ];
     $this->load->view('templates/header',$data);
     $this->load->view('index',$data);
     $this->load->view('templates/footer');
+  }
+
+
+  // == FILTER LAPORAN ==//
+  public function laporan_by_emp($emp_id = null)
+  {
+    if($emp_id === null){
+      $laporan = $this->laporan->getLaporan();
+      if ($laporan) {
+        echo json_encode($laporan);
+      }else{
+        return false;
+      }
+    }else{
+      $reportemp = $this->laporan->getLaporanByEmp($emp_id);
+      if($reportemp){
+        echo json_encode($reportemp);
+      }
+    }
+  }
+
+  public function search_laporan($keyword = null)
+  {
+    if($keyword === null){
+      $laporan = $this->laporan->getLaporan();
+      if ($laporan) {
+        echo json_encode($laporan);
+      }else{
+        return false;
+      }
+    }else{
+      $reportemp = $this->laporan->getLaporanByKeyword($keyword);
+      if($reportemp){
+        echo json_encode($reportemp);
+      }
+    }
+  }
+  public function get_laporan_by_date()
+  {
+    $date = [
+      'start_date' => $this->input->post('start_date',true),
+      'end_date' => $this->input->post('end_date',true)
+    ];
+    if($date === null){
+      $laporan = $this->laporan->getLaporan();
+      if ($laporan) {
+        echo json_encode($laporan);
+      }else{
+        return false;
+      }
+    }else{
+      $reportemp = $this->laporan->getLaporanByDate($date);
+      if($reportemp){
+        echo json_encode($reportemp);
+      }
+    }
   }
 
   // public function create()

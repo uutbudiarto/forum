@@ -21,6 +21,16 @@
 
 
 <script type="text/javascript">
+
+function playsoundreply() {
+  var audio = new Audio('<?=base_url('assets/audio/__send.mp3')?>');
+  audio.volume = 0.1;
+  audio.play();
+}
+
+
+
+
   $('#form_user_reply_chat').on('submit',function (e) {
     e.preventDefault();
     if($('#chat_text').val() == ''){
@@ -33,6 +43,7 @@
         success:function(res){
           $('#chat_text').val('');
           get_chat();
+          playsoundreply()
         }
       })
     }
@@ -45,8 +56,7 @@
       success:function (res) {
         let html = '';
         if (res) {
-          const data = JSON.parse(res);
-          console.log(data);          
+          const data = JSON.parse(res);         
           data.forEach(d => {
             html += `
               ${(() => {

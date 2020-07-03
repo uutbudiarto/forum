@@ -22,7 +22,7 @@
       <textarea name="chat_text" id="chat_text" class="form-control border-0" rows="5" autofocus></textarea>
     </div>
     <div class="col-2 col-md-1 d-flex text-center align-items-center">
-      <button class="btn btn-dark rounded-0"><i class="fas fa-paper-plane"></i></button>
+      <button class="btn btn-primary rounded-0"><i class="fas fa-paper-plane"></i></button>
     </div>
   </div>
 </form>
@@ -31,6 +31,15 @@
 
 
 <script type="text/javascript">
+
+function playsoundreply() {
+  var audio = new Audio('<?=base_url('assets/audio/__send.mp3')?>');
+  audio.volume = 0.1;
+  audio.play();
+}
+
+
+
   $('#form_chat').submit(function (e) {
     e.preventDefault();
     $.ajax({
@@ -39,6 +48,7 @@
       data: $('#form_chat').serialize(),
       success:function (res) {
         $('#chat_text').val('');
+        playsoundreply()
       }
     })
   })
@@ -53,7 +63,6 @@
         if (res) {
           const data = JSON.parse(res);
           data.forEach(d => {
-            console.log(d);
             html += `
             ${(() => {
               if(d.user_id == keyUser){

@@ -7,13 +7,13 @@
     <?= form_error('report-text','<small class="text-danger">','</small>'); ?>
   </div>
 
-  <div class="form-group d-flex justify-content-between align-items-center">
-    <div class="left">
+  <div class="form-group d-flex justify-content-end align-items-center">
+    <!-- <div class="left">
       <button class="btn text-secondary"><i class="fas fa-image"></i></button>
       <button class="btn text-secondary"><i class="fas fa-paperclip"></i> File</button>
-    </div>
+    </div> -->
     <div class="right">
-      <button class="btn btn-sm btn-primary">Kirim <i class="fas fa-paper-plane"></i></button>
+      <button class="btn btn-sm btn-primary" onclick="playsoundRep()">Kirim <i class="fas fa-paper-plane"></i></button>
     </div>
   </div>
   <?= form_close(); ?>
@@ -21,6 +21,13 @@
 
 
 <script>
+  function playsoundRep() {
+    const audio = new Audio('<?=base_url('assets/audio/1.mp3')?>');
+    audio.volume = 1;
+    audio.play();
+    // alert('OK')
+  }
+
   $('.report-text').on('focus',function () {
     $(this).addClass('focused');
   })

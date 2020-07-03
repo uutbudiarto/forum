@@ -44,9 +44,13 @@
 <div class="report-box">
   <?php foreach($myreport as $mr) : ?>
     <div class="card-report">
+    <div class="trun-report p-2" style="height: 50px;">
+    <?php $rep = substr($mr->report_text,0 ,50);  ?>
+      <p><?=$rep.'...'; ?></p>
+      <small class="text-secondary">Laporan Tanggal <?=date('d-m-Y',$mr->time_created) ?></small>
+    </div>
       <div class="card-report-body">
         <img src="<?=base_url('assets/img/report/').$mr->report_image; ?>" alt="">
-        <h5 class="text-my-report"><?=date('l d m Y',$mr->time_created) ?></h5>
       </div>
       <div class="card-report-layer"></div>
       <div class="card-act-layer d-none">
@@ -60,10 +64,6 @@
     </div>
   <?php endforeach; ?>
 </div>
-
-<pre>
-  <?php //print_r($_SESSION) ?>
-</pre>
 
 <!-- Modal -->
 <div class="modal pulse" id="modal_logout">

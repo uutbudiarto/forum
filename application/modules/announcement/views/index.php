@@ -1,45 +1,63 @@
-<h3 class="px-2 pb-3 pt-2 mb-3 text-secondary border-bottom text-center">Buat Pengumuman</h3>
+<?=$this->session->flashdata('message'); ?>
 
-<?=form_open('announcement/create/', 'class="ann_form" id="ann_form"') ?>
-  <div class="p-1 px-lg-5 pt-lg-5">
-    <div class="form-group">
-      <input type="text" class="form-control <?php if(form_error('ann_title')){echo 'is-invalid';} ?> input-bottom-border" id="ann_title" name="ann_title" placeholder="Judul Pengumuman" value="<?= set_value('ann_title') ?>">
-      <?=form_error('ann-title','<div class="invalid-feedback text-right">','</div>') ?>
-    </div>
-    <div class="row no-gutters justify-content-between">
-      <div class="col-5">
-        <div class="form-group">
-        <select class="custom-select <?php if(form_error('urgency')){echo 'is-invalid';} ?> input-bottom-border" name="urgency" id="urgency">
-          <option value="">Tipe Urgensi</option>
-          <option value="info">Low</option>
-          <option value="warning">Medium</option>
-          <option value="danger">High</option>
-        </select>
-        <?=form_error('urgency','<div class="invalid-feedback text-right">','</div>') ?>
-      </div>
-      </div>
-      <div class="col-6">
-        <input type="date" class="form-control input-bottom-border" name="ann_date" id="ann_date" value="<?= set_value('ann_date') ?>">
-      </div>
-    </div>
-    <div class="form-group">
-      <textarea name="ann_text" id="ann_text" rows="2" class="form-control <?php if(form_error('ann_text')){echo 'is-invalid';} ?> input-bottom-border" placeholder="Isi Pengumuman"><?= set_value('ann_text');?></textarea>
-      <?=form_error('ann_text','<div class="invalid-feedback text-right">','</div>') ?>
-    </div>
-    <div class="text-right">
-      <a href="<?=base_url('profile'); ?>" class="btn btn-secondary px-4">Batal</a>
-      <button class="btn btn-primary px-3"><i class="fas fa-bullhorn"></i> Siarkan</button>
+<div class="row no-gutters p-2">
+  <div class="col-8">
+    <h5 class="text-center my-3">List Pengumuman Anda</h5>
+  </div>
+  <div class="col-4 text-right">
+    <a href="<?=base_url('announcement/create/') ?>" class="btn btn-sm btn-primary">Buat</a>
+  </div>
+  <div class="col-12 p-2">
+    <div class="list-group">
+      <?php foreach($ann as $an) : ?>
+        <?php if($this->session->userdata('user_id') == $an->user_id) : ?>
+        <button class="list-group-item btn list-group-item-action btn-action my-2 shadow-sm border-0" data-toggle="modal" data-target="#action" data-id=<?=$an->ann_id; ?>>
+          <div class="d-flex w-100 justify-content-between">
+            <h5 class="mb-1"><?=$an->ann_title; ?></h5>
+            <small><?=date('Y-m-d',$an->time_created) ?></small>
+          </div>
+          <p class="mb-1">
+            <?=$an->ann_text; ?>
+          </p>
+          <span class="badge badge-<?=$an->urgency?> badge-pill">-</span>
+          <small class="d-block text-right">Di Buat Oleh : <?=$an->fullname; ?></small>
+        </button>
+        <?php endif; ?>
+
+      <?php endforeach; ?>
     </div>
   </div>
-  <?= form_close(); ?>
+</div>
 
-
+<!-- Modal -->
+<div class="modal zoomIn" id="action">
+  <div class="modal-dialog modal-dialog-centered modal-sm">
+    <div class="modal-content">
+      <div class="modal-header p-1">
+        <h5 class="modal-title">Action</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body text-center d-flex justify-content-between">
+        <a href="javascript:void(0)" class="btn px-4 text-white btn-warning btn-ubah">Edit</a>
+        <?=form_open('announcement/delete')?>
+        <input type="hidden" name="ann-id-act" id="ann-id-act">
+          <button type="submit" class="btn px-4 btn-danger btn-hapus">Hapus</button>
+        <?=form_close();?>
+      </div>
+    </div>
+  </div>
+</div>
 
 <script type="text/javascript">
-  $('#ann-text').focus(function () {
-    $(this).attr('rows',10);
-  });
-  $('#ann-text').focusout(function () {
-    $(this).attr('rows',2);
-  });
+  $('.btn-action').on('click',function () {
+    const annId = $(this).data('id');
+    $('#ann-id-act').val(annId);
+  })
+
+  $('.btn-ubah').on('click',function () {
+    const annId = $('#ann-id-act').val();
+    window.location.href = '<?=base_url('announcement/detail/')?>'+annId;
+  })
 </script>

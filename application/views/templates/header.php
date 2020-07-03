@@ -31,7 +31,7 @@
       <img class="mr-2 rounded-circle" width="30" height="30" src="<?=base_url('assets/icons/favicon.jpeg') ?>" alt="">
       <h3 class="brand-name d-md-block d-none">Forum</h3>
     </div>
-    <div class="center">
+    <div class="center d-none">
         <input type="text" class="form-control form-control-sm text-center" placeholder="cari...">
     </div>
     <div class="right">
@@ -42,9 +42,40 @@
           </a>
         <?php endforeach; ?>
       </div>
-      <?php if($this->session->userdata('role_id') == 3): ?>
-        <a href="<?=base_url('report/create/'); ?>" class="text-white card-link ml-3"><i class="fas fa-pencil-alt border p-1"></i></a>
+      <?php if($this->session->userdata('role_id') != 1): ?>
+        <a href="<?=base_url('report/create/'); ?>" class="text-white card-link ml-3"><i class="fas fa-pencil-alt border rounded p-1"></i></a>
       <?php endif; ?>
+
+      <?php if($this->session->userdata('role_id') != 3) : ?>
+        <a href="<?=base_url('announcement'); ?>" class="text-white card-link ml-3"><i class="fas fa-broadcast-tower border rounded p-1"></i></a>
+      <?php endif; ?>
+
+
+        <button type="button" class="btn text-white" data-toggle="modal" data-target="#modal_logout" onclick="playsoundlogout()">
+          <i class="fas fa-sign-out-alt border rounded p-1"></i>
+        </button>
     </div>
   </nav>
   <div class="content-wrapper" style="position: relative;">
+
+  <div class="modal pulse" id="modal_logout">
+    <div class="modal-dialog modal-sm modal-dialog-centered">
+      <div class="modal-content" style="border: 2px solid #100;">
+        <div class="modal-body">
+          <span class="text-center d-block">Apakah anda akan logout ?</span>
+        </div>
+        <div class="d-flex justify-content-between px-3 py-2">
+          <button type="button" class="btn btn-sm btn-danger" data-dismiss="modal">TIDAK</button>
+          <a href="<?=base_url('auth/logout/') ?>" type="button" class="btn btn-sm btn-primary px-4">YA</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function playsoundlogout() {
+      const audio = new Audio('<?=base_url('assets/audio/__logout2.mp3')?>');
+      audio.volume = .5;
+      audio.play();
+    }
+  </script>
