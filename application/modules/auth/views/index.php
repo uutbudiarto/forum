@@ -17,7 +17,7 @@
       <a href="" class="forgot-password d-none"><i class="fas fa-key"></i> Lupa Password</a>
     </div>
 
-    <div class="d-flex align-items-center justify-content-end">
+    <div class="d-flex align-items-center justify-content-center">
       <div class="act-other-auth ml-lg-2 mt-3 d-none">
         <small class="d-block text-secondary">Belum punya akun ?</small>
         <small><a href="<?=base_url('auth/register/')?>" class="card-link">Daftar</a></small>

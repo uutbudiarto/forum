@@ -29,6 +29,26 @@ class Chat_m extends CI_Model {
       return $this->db->get('chat_root')->row()->id;
     }
   }
+
+  public function getAllChatRoot()
+  {
+    $user = $this->session->userdata('user_id');
+    $this->db->select('
+      chat_root.id as chat_root_id,
+      chat_root.time_created,
+      chat_root.count_chat_adm,
+      chat_root.count_chat_emp,
+      users.image,
+      users.fullname,
+      position.position_name,
+    ');
+    $this->db->from('chat_root');
+    $this->db->join('users','users.id = chat_root.to_user');
+    $this->db->join('position','position.id = users.position_id');
+    $this->db->where('from_user',$user);
+    $this->db->where('chat_root.is_active',1);
+    return $this->db->get()->result();
+  }
   public function getUserReceiver($receiver)
   {
     return $this->db->get_where('users',['id' => $receiver])->row();
@@ -45,7 +65,7 @@ class Chat_m extends CI_Model {
       $this->db->set('count_chat_adm', $new_count);
       $this->db->where('id',$data['chat_root_id']);
       $this->db->update('chat_root');
-      if($this->db->affected_rows > 0){
+      if($this->db->affected_rows() > 0){
         return true;
       }
     }
@@ -86,11 +106,7 @@ class Chat_m extends CI_Model {
     $this->db->where('from_user',$from_user);
     $this->db->where('to_user',$to_user);
     $this->db->update('chat_root');
-
   }
-
-
-
 
   public function userReply($data)
   {
@@ -103,11 +119,43 @@ class Chat_m extends CI_Model {
       $this->db->set('count_chat_emp', $new_count);
       $this->db->where('id',$data['chat_root_id']);
       $this->db->update('chat_root');
-      if($this->db->affected_rows > 0){
+      if($this->db->affected_rows() > 0){
         return true;
       }
     }else{
       return false;
     }
+  }
+
+
+  public function getChatAllByRootChatIdAndDate($data)
+  {
+    $this->db->where('chat_root_id',$data['chat_root_id']);
+    $this->db->where('created_at',$data['date']);
+    return $this->db->get('chat')->result();
+  }
+
+
+
+  // Tambahan Chat
+  public function chat_root($id)
+  {
+    $user = $this->session->userdata('user_id');
+    $this->db->select('
+      chat_root.id as chat_root_id,
+      chat_root.time_created,
+      chat_root.count_chat_adm,
+      chat_root.count_chat_emp,
+      users.image,
+      users.fullname,
+      position.position_name,
+    ');
+    $this->db->from('chat_root');
+    $this->db->join('users','users.id = chat_root.to_user');
+    $this->db->join('position','position.id = users.position_id');
+    $this->db->where('from_user',$user);
+    $this->db->where('chat_root.id',$id);
+    $this->db->where('chat_root.is_active',1);
+    return $this->db->get()->row();
   }
 }

@@ -25,8 +25,8 @@ date_default_timezone_set("Asia/Jakarta");
 |
 */
 // $config['base_url'] = 'http://192.168.0.106/forum/';
-$config['base_url'] = 'http://192.168.43.139/forum/';
-// $config['base_url'] = 'http://localhost/forum/';
+// $config['base_url'] = 'http://192.168.43.139/forum/';
+$config['base_url'] = 'http://localhost/forum/';
 
 
 /*

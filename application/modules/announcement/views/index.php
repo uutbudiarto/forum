@@ -1,8 +1,11 @@
 <?=$this->session->flashdata('message'); ?>
-
 <div class="row no-gutters p-2">
   <div class="col-8">
-    <h5 class="text-center my-3">List Pengumuman Anda</h5>
+    <?php if($ann) : ?>
+    <h5 class="text-center pt-2 pb-3 border-bottom">List Pengumuman Anda</h5>
+    <?php else: ?>
+      <h6 class="text-center pt-2 pb-3 border-bottom">Anda Belum membuat pengumumman</h6>
+    <?php endif; ?>
   </div>
   <div class="col-4 text-right">
     <a href="<?=base_url('announcement/create/') ?>" class="btn btn-sm btn-primary">Buat</a>
@@ -23,7 +26,6 @@
           <small class="d-block text-right">Di Buat Oleh : <?=$an->fullname; ?></small>
         </button>
         <?php endif; ?>
-
       <?php endforeach; ?>
     </div>
   </div>

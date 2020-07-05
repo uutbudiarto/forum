@@ -48,25 +48,45 @@
   </div>
 </div>
 
+<?php if($ann) : ?>
+  <div class="news-new">
+    <div class="my-alert rounded-0 shadow mx-2 mt-3 alert-dismissible show" role="alert">
+      <h5 class="text-center text-white">
+        <span class="badge bg-white text-<?=$ann[0]->urgency?> rounded-0 pr-3 mr-2 py-2 float-left" style="clip-path: polygon(0% 0%, 75% 0%, 100% 50%, 75% 100%, 0% 100%); font-weight: 400; font-size: 16px;">Terbaru</span>
+        <i class="fas fa-bullhorn"></i> PENGUMUMAN</h5>
+      <strong class="text-white"><?=$ann[0]->ann_title; ?></strong>
+      <button type="button" class="close text-white" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+      <div class="text-an text-white">
+        <?=$ann[0]->ann_text; ?>
+      </div>
+      <div class="text-white mt-5">
+        <span>TTD</span>
+        <p><?=date('Y-m-d',$ann[0]->time_created); ?></p>
+        <span><?=$ann[0]->fullname; ?></span>
+      </div>
+    </div>
+  </div>
+<?php endif; ?>
+
 <?php foreach($ann as $an) : ?>
-<div class="alert alert-<?=$an->urgency?> bg-<?=$an->urgency?> rounded-0 shadow mx-2 mt-3 alert-dismissible show" role="alert">
-  <h3 class="text-center text-white"><i class="fas fa-bullhorn"></i> PENGUMUMAN</h3>
-  <strong class="text-white"><?=$an->ann_title; ?></strong>
-  <button type="button" class="close text-white" data-dismiss="alert" aria-label="Close">
-    <span aria-hidden="true">&times;</span>
-  </button>
-  <div class="text-an text-white">
-    <?=$an->ann_text; ?>
-  </div>
-  <div class="text-white mt-5">
-    <span>TTD</span>
-    <p><?=date('Y-m-d',$an->time_created); ?></p>
-    <span><?=$an->fullname; ?></span>
-  </div>
-</div>
+  <?php if($an->ann_id != $ann[0]->ann_id) : ?>
+  <?php if($an->time_exp >  time()) : ?>
+    <div class="list-group m-2">
+      <a href="#" class="list-group-item border-0 shadow-sm list-group-item-action">
+        <div class="d-flex w-100 justify-content-between">
+          <h5 class="mb-1"><?=$an->ann_title ?></h5>
+          <small class="text-muted"><?=date('Y-m-d',$an->time_created); ?></small>
+        </div>
+        <?php $rep = substr($an->ann_text,0 ,30);  ?>
+        <p><?=$rep.'...'; ?></p>
+        <small class="text-muted"><?=$an->fullname; ?></small>
+      </a>
+    </div>
+  <?php endif; ?>
+  <?php endif; ?>
 <?php endforeach; ?>
-
-
 <script type="text/javascript">
 
 function detail_emp(user_id) {

@@ -1,6 +1,10 @@
 <div class="back-top row no-gutters p-3" id="_9090">
   <div class="col-1">
-    <a href="<?=base_url('laporan/'); ?>" class="card-link text-dark"><i class="fas fa-arrow-left"></i></a>
+  <?php if($this->session->userdata('role_id') != 3) : ?>
+    <a href="javascipt:void(0)" class="card-link text-dark"><i class="fas fa-arrow-left" id="backByDetailLaporan"></i></a>
+  <?php else: ?>
+    <a href="<?=base_url('profile');?>" class="card-link text-dark"><i class="fas fa-arrow-left"></i></a>
+  <?php endif; ?>
   </div>
   <div class="col-10">
   <img width="35" height="35" class="img-user-comment rounded-circle mr-2" src="<?=base_url('assets/img/profile/').$report->user_image; ?>" alt="">
@@ -9,6 +13,8 @@
     <small class="d-block text-secondary text-right"><?=date('D - d m Y',$report->time_created);?></small>
   </div>
 </div>
+
+<input type="hidden" id="report_id" value="<?=$report->report_id; ?>">
 
 
 <div class="box-comment-list-22 pt-2"></div>
@@ -86,6 +92,16 @@
       success: function (res) {
         $('#comment_write').val('');
         getCommentByReportId()
+      }
+    })
+  });
+
+  $('#backByDetailLaporan').on('click',function () {
+    const reportId = $('#report_id').val();
+    $.ajax({
+      url:'<?=base_url()?>laporan/reset_notif/'+reportId,
+      success: function (res) {
+        window.location.href = '<?=base_url()?>laporan';
       }
     })
   })

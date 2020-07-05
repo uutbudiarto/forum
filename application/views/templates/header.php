@@ -43,15 +43,12 @@
         <?php endforeach; ?>
       </div>
       <?php if($this->session->userdata('role_id') != 1): ?>
-        <a href="<?=base_url('report/create/'); ?>" class="text-white card-link ml-3"><i class="fas fa-pencil-alt border rounded p-1"></i></a>
+        <a href="<?=base_url('report/create/'); ?>" class="text-white card-link ml-2"><i class="fas fa-pencil-alt border rounded p-1"></i></a>
       <?php endif; ?>
-
       <?php if($this->session->userdata('role_id') != 3) : ?>
-        <a href="<?=base_url('announcement'); ?>" class="text-white card-link ml-3"><i class="fas fa-broadcast-tower border rounded p-1"></i></a>
+        <a href="<?=base_url('announcement'); ?>" class="text-white card-link ml-2"><i class="fas fa-broadcast-tower border rounded p-1"></i></a>
       <?php endif; ?>
-
-
-        <button type="button" class="btn text-white" data-toggle="modal" data-target="#modal_logout" onclick="playsoundlogout()">
+        <button type="button" class="btn px-1 text-white" data-toggle="modal" data-target="#modal_logout" onclick="playsoundlogout()">
           <i class="fas fa-sign-out-alt border rounded p-1"></i>
         </button>
     </div>

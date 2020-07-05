@@ -387,4 +387,28 @@ class Laporan_m extends CI_Model {
       return $this->db->get()->result();
     }
   }
+
+  public function resetNotif($report_id)
+  {
+    $roleId = $this->session->userdata('role_id');
+    // update indikator baca sesuai user role yg login
+    if ($roleId == 1) {
+      $this->db->set('is_owner_readed',1);
+      $this->db->set('count_comment_owner',0);
+      $this->db->where('id',$report_id);
+      $this->db->update('reports');
+    }else if($roleId == 2){
+      $this->db->set('is_manager_readed',1);
+      $this->db->set('count_comment_manager',0);
+      $this->db->where('id',$report_id);
+      $this->db->update('reports');
+    }else{
+      $this->db->set('count_comment_user',0);
+      $this->db->where('id',$report_id);
+      $this->db->update('reports');
+    }
+    if($this->db->affected_rows() > 0){
+      return true;
+    }
+  }
 }

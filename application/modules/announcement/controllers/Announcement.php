@@ -89,6 +89,7 @@ class Announcement extends CI_Controller {
           'ann_title' => $this->input->post('ann_title',true),
           'ann_text' => $this->input->post('ann_text',true),
           'time_created' => time(),
+          'time_exp' => time() + 60 * 60 * 24 * 6,
           'created_at' => date('Y-m-d'),
           'updated_at' => date('Y-m-d'),
           'is_active' => 1

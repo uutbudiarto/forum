@@ -14,10 +14,12 @@ class Announcement_m extends CI_Model {
       announcement.ann_title,
       announcement.ann_text,
       announcement.time_created,
+      announcement.time_exp,
     ');
     $this->db->from('announcement');
     $this->db->join('users','users.id = announcement.user_id');
     $this->db->where('announcement.is_active',1);
+    $this->db->order_by('announcement.time_created','DESC');
     return $this->db->get()->result();
   }
 

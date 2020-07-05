@@ -132,4 +132,15 @@ class Laporan extends CI_Controller {
       redirect('laporan/get_laporan_by_id/'.$data['report_id']);
     }
   }
+
+
+
+
+  public function reset_notif($report_id)
+  {
+    $result = $this->laporan->resetNotif($report_id);
+    if($result){
+      echo json_encode($result);
+    }
+  }
 }

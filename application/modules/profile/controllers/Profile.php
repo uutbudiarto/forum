@@ -15,12 +15,31 @@ class Profile extends CI_Controller {
         'title' => 'Profile',
         'profile' => $this->profile->getMyProfile(),
         'myreport' => $this->profile->getMyReport()->result(),
-        'countreport' => $this->profile->getMyReport()->num_rows(),
+        // 'countreport' => $this->profile->getMyReport()->num_rows(),
       ];
       $this->load->view('templates/header',$data);
       $this->load->view('index',$data);
       $this->load->view('templates/footer');
   }
+
+  public function count_report()
+  {
+    $countreport = $this->profile->getMyCountReport();
+    if($countreport){
+      echo json_encode($countreport);
+    }
+  }
+
+  public function get_all_myrepoert()
+  {
+    $allmyreport = $this->profile->getAllMyReport();
+    if($allmyreport){
+      echo json_encode($allmyreport);
+    }
+  }
+
+
+
   public function edit()
   {
     is_logged_in();

@@ -20,6 +20,46 @@ class Chat extends CI_Controller {
     $this->load->view('index',$data);
     $this->load->view('templates/footer');
   }
+
+  public function history()
+  {
+    is_logged_in();
+    $data = [
+      'title' => 'Chat',
+      'chat_root' => $this->chat->getAllChatRoot(),
+    ];
+    $this->load->view('templates/header',$data);
+    $this->load->view('chat-history',$data);
+    $this->load->view('templates/footer');
+  }
+
+  public function get_chat_by_history($id)
+  {
+    is_logged_in();
+    $data = [
+      'title' => 'Chat',
+      'chat_root' => $this->chat->chat_root($id),
+    ];
+    $this->load->view('templates/header',$data);
+    $this->load->view('chat-history-by-root',$data);
+    $this->load->view('templates/footer');
+  }
+
+  public function get_chat_by_filter_date()
+  {
+    $data = [
+      'chat_root_id' => $this->input->post('root',true),
+      'date' => $this->input->post('date',true),
+    ];
+    $result = $this->chat->getChatAllByRootChatIdAndDate($data);
+    if($result){
+      echo json_encode($result);
+    }else{
+      return false;
+    }
+  }
+
+
   public function chat_with()
   {
     is_logged_in();
@@ -86,4 +126,41 @@ class Chat extends CI_Controller {
       echo json_encode($result);
     }
   }
+
+
+
+  // reset adm count resetCountAdm
+  public function reset_adm($receiver)
+  {
+    $this->chat->resetCountAdm($receiver);
+  }
+  public function reset_emp($chat_root_id)
+  {
+    $this->chat->resetCountEmp($chat_root_id);
+  }
+
+
+  public function load_confirm($root)
+  {
+    $data['root'] = $root;
+    $this->load->view('confirm-clear',$data);
+  }
+  public function clear_chat_by_root()
+  {
+    $chat_root_id = $this->input->post('chat_root_id');
+    $this->db->where('chat_root_id', $chat_root_id);
+    $this->db->delete('chat');
+
+    //FOR SOFT DELETE
+    // $this->db->set('is_active',0);
+    // $this->db->update('chat');
+    if($this->db->affected_rows() > 0){
+      $this->db->set('count_chat_adm',0);
+      $this->db->set('count_chat_emp',0);
+      $this->db->where('id',$chat_root_id);
+      $this->db->update('chat_root');
+      redirect('chat/get_chat_by_history/'.$chat_root_id);
+    }
+  }
+
 }

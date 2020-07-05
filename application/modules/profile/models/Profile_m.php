@@ -37,8 +37,56 @@ class Profile_m extends CI_Model {
     $this->db->join('users','users.id = reports.user_id');
     $this->db->where('user_id',$userId);
     $this->db->where('reports.is_active',1);
+    $this->db->limit(4);
     $this->db->order_by('reports.time_created','DESC');
     return $this->db->get();
+  }
+
+  public function getAllMyReport()
+  {
+    $userId = $this->session->userdata('user_id');
+    $this->db->select('
+    reports.id as report_id,
+    users.fullname,
+    users.image as user_image,
+    reports.report_text,
+    reports.report_image,
+    reports.report_file,
+    reports.time_created,
+    reports.count_comment,
+    reports.is_active,
+    reports.is_owner_readed,
+    reports.is_manager_readed,
+    ');
+    $this->db->from('reports');
+    $this->db->join('users','users.id = reports.user_id');
+    $this->db->where('user_id',$userId);
+    $this->db->where('reports.is_active',1);
+    $this->db->order_by('reports.time_created','DESC');
+    return $this->db->get()->result();
+  }
+  public function getMyCountReport()
+  {
+    $userId = $this->session->userdata('user_id');
+    $this->db->select('
+    reports.id as report_id,
+    users.fullname,
+    users.image as user_image,
+    reports.report_text,
+    reports.report_image,
+    reports.report_file,
+    reports.time_created,
+    reports.count_comment,
+    reports.is_active,
+    reports.is_owner_readed,
+    reports.is_manager_readed,
+    ');
+    $this->db->from('reports');
+    $this->db->join('users','users.id = reports.user_id');
+    $this->db->where('user_id',$userId);
+    $this->db->where('reports.is_active',1);
+    $this->db->order_by('reports.time_created','DESC');
+    return $this->db->get()->num_rows();
   }
   
   public function editMyProfile($data)
