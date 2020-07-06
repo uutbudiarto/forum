@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 30, 2020 at 10:32 AM
+-- Generation Time: Jul 06, 2020 at 08:49 AM
 -- Server version: 10.4.11-MariaDB
 -- PHP Version: 7.2.30
 
@@ -33,13 +33,26 @@ CREATE TABLE `announcement` (
   `role_id` int(11) NOT NULL,
   `urgency` varchar(128) NOT NULL,
   `ann_title` text NOT NULL,
-  `ann_date` int(11) NOT NULL,
+  `ann_text` text NOT NULL,
   `time_created` varchar(128) NOT NULL,
+  `time_exp` varchar(20) NOT NULL,
   `created_at` varchar(128) NOT NULL,
   `updated_at` varchar(128) NOT NULL,
   `deleted_at` varchar(128) DEFAULT NULL,
   `is_active` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `announcement`
+--
+
+INSERT INTO `announcement` (`id`, `user_id`, `role_id`, `urgency`, `ann_title`, `ann_text`, `time_created`, `time_exp`, `created_at`, `updated_at`, `deleted_at`, `is_active`) VALUES
+(17, 26, 2, 'info', 'Penting1', 'Low', '1593755645', '1593759245', '2020-07-03', '2020-07-03', NULL, 0),
+(18, 26, 2, 'info', 'Penting', 'jadi low udah diubah', '1593755660', '1593759260', '2020-07-03', '2020-07-03', NULL, 0),
+(19, 26, 2, 'danger', 'Ini Pengumuman Baru', 'Penting bgt', '1593756879', '1593760479', '2020-07-03', '2020-07-03', NULL, 0),
+(20, 25, 1, 'danger', 'Penting', 'Pengumuman Dari Admin 1', '1593757999', '1594276399', '2020-07-03', '2020-07-03', NULL, 0),
+(21, 25, 1, 'warning', 'Pengumuman 2', 'Dari Admin 1', '1593758298', '1594276698', '2020-07-03', '2020-07-03', NULL, 0),
+(22, 26, 2, 'danger', 'Pengumuman 1', 'Pengumuman 1 dari admin 1', '1593758449', '1594276849', '2020-07-03', '2020-07-03', NULL, 1);
 
 -- --------------------------------------------------------
 
@@ -65,30 +78,10 @@ CREATE TABLE `chat` (
 --
 
 INSERT INTO `chat` (`id`, `chat_root_id`, `user_id`, `chat_text`, `time_created`, `created_at`, `updated_at`, `deleted_at`, `is_readed`, `is_active`) VALUES
-(18, 11, 26, 'halloo mas nadim', '1593195001', '2020-06-27', '2020-06-27', '', 0, 1),
-(19, 11, 28, 'O iya hallo pak', '1593195015', '2020-06-27', '2020-06-27', '', 0, 1),
-(20, 11, 28, 'Bisa dibantu pak', '1593195025', '2020-06-27', '2020-06-27', '', 0, 1),
-(21, 11, 26, 'ooo  enggak tes doang, kabar jos kan', '1593195047', '2020-06-27', '2020-06-27', '', 0, 1),
-(22, 11, 28, 'Ooo jos pak', '1593195053', '2020-06-27', '2020-06-27', '', 0, 1),
-(23, 14, 25, 'test', '1593491811', '2020-06-30', '2020-06-30', '', 0, 1),
-(24, 14, 25, 'hitung 1', '1593492892', '2020-06-30', '2020-06-30', '', 0, 1),
-(25, 15, 25, 'test hitung 1', '1593492957', '2020-06-30', '2020-06-30', '', 0, 1),
-(26, 14, 25, 'hitung 2', '1593493212', '2020-06-30', '2020-06-30', '', 0, 1),
-(27, 14, 27, 'hitung jawab 1', '1593495280', '2020-06-30', '2020-06-30', '', 0, 1),
-(28, 14, 25, 'test1', '1593495315', '2020-06-30', '2020-06-30', '', 0, 1),
-(29, 14, 27, 'jawab 2', '1593495348', '2020-06-30', '2020-06-30', '', 0, 1),
-(30, 11, 26, 'test1', '1593498306', '2020-06-30', '2020-06-30', '', 0, 1),
-(31, 11, 28, '1 balasan', '1593498550', '2020-06-30', '2020-06-30', '', 0, 1),
-(32, 17, 26, 'test chat ke waw', '1593499074', '2020-06-30', '2020-06-30', '', 0, 1),
-(33, 11, 28, '2balsan', '1593499104', '2020-06-30', '2020-06-30', '', 0, 1),
-(34, 17, 24, '1 balasan dari waw', '1593499164', '2020-06-30', '2020-06-30', '', 0, 1),
-(35, 17, 26, '1', '1593500407', '2020-06-30', '2020-06-30', '', 0, 1),
-(36, 17, 24, 'ok1', '1593500447', '2020-06-30', '2020-06-30', '', 0, 1),
-(37, 17, 24, 'balas lagi', '1593501106', '2020-06-30', '2020-06-30', '', 0, 1),
-(38, 17, 26, 'haloo', '1593501240', '2020-06-30', '2020-06-30', '', 0, 1),
-(39, 17, 26, 'pye kabare', '1593501271', '2020-06-30', '2020-06-30', '', 0, 1),
-(40, 14, 27, 'hallo pak jokowi\r\nudah baikan blm ama prabowo', '1593502967', '2020-06-30', '2020-06-30', '', 0, 1),
-(41, 14, 25, 'ooo kita ma temen lama, dia guru saya malahan wkwkwk', '1593503059', '2020-06-30', '2020-06-30', '', 0, 1);
+(184, 24, 25, 'OK', '1593951128', '2020-07-05', '2020-07-05', '', 0, 1),
+(186, 24, 27, 'OK', '1593963388', '2020-07-05', '2020-07-05', '', 0, 1),
+(187, 24, 27, 'OK', '1593963399', '2020-07-05', '2020-07-05', '', 0, 1),
+(188, 24, 27, 'OK', '1593963432', '2020-07-05', '2020-07-05', '', 0, 1);
 
 -- --------------------------------------------------------
 
@@ -114,11 +107,10 @@ CREATE TABLE `chat_root` (
 --
 
 INSERT INTO `chat_root` (`id`, `from_user`, `to_user`, `time_created`, `created_at`, `updated_at`, `deleted_at`, `is_active`, `count_chat_adm`, `count_chat_emp`) VALUES
-(11, 26, 28, '1593194990', '2020-06-27', '2020-06-27', NULL, 1, 0, 0),
-(12, 25, 26, '1593483779', '2020-06-30', '2020-06-30', NULL, 1, 0, 0),
-(14, 25, 27, '1593486889', '2020-06-30', '2020-06-30', NULL, 1, 0, 0),
-(16, 25, 24, '1593493267', '2020-06-30', '2020-06-30', NULL, 1, 0, 0),
-(17, 26, 24, '1593499064', '2020-06-30', '2020-06-30', NULL, 1, 0, 0);
+(24, 25, 27, '1593852709', '2020-07-04', '2020-07-04', NULL, 1, 0, 0),
+(25, 25, 24, '1593854121', '2020-07-04', '2020-07-04', NULL, 1, 0, 0),
+(27, 25, 28, '1593859177', '2020-07-04', '2020-07-04', NULL, 1, 0, 0),
+(28, 26, 27, '1593876223', '2020-07-04', '2020-07-04', NULL, 1, 0, 0);
 
 -- --------------------------------------------------------
 
@@ -145,12 +137,21 @@ CREATE TABLE `comment_reports` (
 --
 
 INSERT INTO `comment_reports` (`id`, `comment_text`, `report_id`, `user_id`, `role_id`, `like_indicator`, `time_created`, `created_at`, `updated_at`, `deleted_at`, `is_active`) VALUES
-(188, 'komen', 41, 25, 1, 5, '1593157808', '2020-06-26', '2020-06-26', NULL, 1),
-(189, 'komen2', 41, 25, 1, 5, '1593157827', '2020-06-26', '2020-06-26', NULL, 1),
-(190, 'hallo prapto', 42, 25, 1, 5, '1593158034', '2020-06-26', '2020-06-26', NULL, 1),
-(191, 'y gan', 42, 27, 3, 5, '1593158044', '2020-06-26', '2020-06-26', NULL, 1),
-(192, 'ok gan', 42, 25, 1, 5, '1593158050', '2020-06-26', '2020-06-26', NULL, 1),
-(193, 'cewe cakep tuh gan\r\n', 42, 27, 3, 5, '1593158061', '2020-06-26', '2020-06-26', NULL, 1);
+(201, 'OK', 52, 25, 1, 5, '1593697374', '2020-07-02', '2020-07-02', NULL, 1),
+(202, 'siap', 52, 26, 2, 5, '1593697397', '2020-07-02', '2020-07-02', NULL, 1),
+(203, 'TEST', 52, 25, 1, 5, '1593697884', '2020-07-02', '2020-07-02', NULL, 1),
+(204, 'text', 51, 25, 1, 5, '1593698477', '2020-07-02', '2020-07-02', NULL, 1),
+(205, 'komen', 52, 26, 2, 5, '1593751499', '2020-07-03', '2020-07-03', NULL, 1),
+(206, 'OK', 52, 26, 2, 5, '1593751519', '2020-07-03', '2020-07-03', NULL, 1),
+(207, 'OK', 52, 26, 2, 5, '1593751623', '2020-07-03', '2020-07-03', NULL, 1),
+(208, '1', 52, 26, 2, 5, '1593751688', '2020-07-03', '2020-07-03', NULL, 1),
+(209, 'OK', 52, 25, 1, 5, '1593751700', '2020-07-03', '2020-07-03', NULL, 1),
+(210, 'lAp', 52, 26, 2, 5, '1593751850', '2020-07-03', '2020-07-03', NULL, 1),
+(211, 'Haloo', 52, 26, 2, 5, '1593751904', '2020-07-03', '2020-07-03', NULL, 1),
+(212, 'Holaa', 52, 25, 1, 5, '1593751913', '2020-07-03', '2020-07-03', NULL, 1),
+(213, 'waw', 51, 25, 1, 5, '1593751950', '2020-07-03', '2020-07-03', NULL, 1),
+(214, 'wawa', 51, 26, 2, 5, '1593751962', '2020-07-03', '2020-07-03', NULL, 1),
+(215, 'wiwi', 51, 25, 1, 5, '1593751968', '2020-07-03', '2020-07-03', NULL, 1);
 
 -- --------------------------------------------------------
 
@@ -177,7 +178,8 @@ INSERT INTO `menus` (`id`, `menu_title`, `menu_name`, `menu_url`, `menu_icon`, `
 (2, 'Report', 'report', 'report', 'report.png', 1, 0),
 (3, 'Employee', 'employee', 'employee', 'employee.png', 3, 1),
 (4, 'Profile', 'profile', 'profile', 'profile.png', 3, 1),
-(5, 'Report', 'laporan', 'laporan', 'report.png', 1, 1);
+(5, 'Report', 'laporan', 'laporan', 'report.png', 1, 1),
+(7, 'Chat', 'chat', 'chat/history/', 'chat.png', 1, 1);
 
 -- --------------------------------------------------------
 
@@ -250,8 +252,12 @@ CREATE TABLE `reports` (
 --
 
 INSERT INTO `reports` (`id`, `user_id`, `report_text`, `report_image`, `report_file`, `time_created`, `created_at`, `updated_at`, `deleted_at`, `is_active`, `is_owner_readed`, `is_manager_readed`, `count_comment`, `count_comment_manager`, `count_comment_owner`, `count_comment_user`) VALUES
-(41, 26, '1. Laporan1, 2.Laporan Point 2', 'default.png', 'default.txt', '1593141468', '2020-06-26', '2020-06-26', NULL, 1, 1, 0, 2, 2, 0, 2),
-(42, 27, 'ah ah ah ah ah ah ah', 'default.png', 'default.txt', '1593157985', '2020-06-26', '2020-06-26', NULL, 1, 1, 0, 4, 4, 1, 0);
+(51, 27, 'Lorem ipsum dolor sit, amet consectetur adipisicing elit. Voluptas impedit doloremque distinctio omnis velit deleniti commodi tempore, fugiat voluptatum voluptates! Quasi eius reiciendis animi enim sequi fugit vitae laboriosam rerum corporis veritatis modi aut porro repudiandae, vel in mollitia aspernatur. Nihil earum placeat saepe adipisci perspiciatis ab tenetur? Repellendus, ipsum, id nisi tenetur odit necessitatibus autem illum quasi quod earum laborum deleniti iusto omnis ducimus quis sunt libero odio. Natus magnam, illo blanditiis ipsam doloribus sed laudantium tempore? Culpa placeat expedita, quam quo tempore similique quae minus itaque alias eum beatae officiis delectus doloremque iure laborum modi! Ipsam, quaerat sapiente!', 'default.png', 'default.txt', '1593672633', '2020-07-02', '2020-07-02', NULL, 1, 1, 1, 4, 0, 0, 0),
+(52, 26, 'Admin 2 Laporan', 'default.png', 'default.txt', '1593697363', '2020-07-02', '2020-07-02', NULL, 1, 1, 1, 11, 0, 0, 11),
+(53, 27, 'Buat Laporan 2', 'default.png', 'default.txt', '1593847645', '2020-07-04', '2020-07-04', NULL, 1, 1, 0, 0, 0, 0, 0),
+(54, 27, 'Membuat Laporan ke 3', 'default.png', 'default.txt', '1593848977', '2020-07-04', '2020-07-04', NULL, 1, 1, 0, 0, 0, 0, 0),
+(55, 27, 'Buat Laporan ke empat', 'default.png', 'default.txt', '1593849080', '2020-07-04', '2020-07-04', NULL, 1, 1, 0, 0, 0, 0, 0),
+(56, 27, 'Buat Laporan ke 5', 'default.png', 'default.txt', '1593849093', '2020-07-04', '2020-07-04', NULL, 1, 1, 1, 0, 0, 0, 0);
 
 -- --------------------------------------------------------
 
@@ -370,31 +376,31 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `announcement`
 --
 ALTER TABLE `announcement`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
 
 --
 -- AUTO_INCREMENT for table `chat`
 --
 ALTER TABLE `chat`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=42;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=189;
 
 --
 -- AUTO_INCREMENT for table `chat_root`
 --
 ALTER TABLE `chat_root`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
 
 --
 -- AUTO_INCREMENT for table `comment_reports`
 --
 ALTER TABLE `comment_reports`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=194;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=216;
 
 --
 -- AUTO_INCREMENT for table `menus`
 --
 ALTER TABLE `menus`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `position`
@@ -412,7 +418,7 @@ ALTER TABLE `readed_status`
 -- AUTO_INCREMENT for table `reports`
 --
 ALTER TABLE `reports`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=43;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=57;
 
 --
 -- AUTO_INCREMENT for table `role`

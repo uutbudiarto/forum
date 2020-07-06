@@ -92,6 +92,7 @@ class Laporan extends CI_Controller {
       return false;
     }
   }
+
   public function get_laporan_by_id($report_id)
   {
     is_logged_in();
@@ -131,6 +132,18 @@ class Laporan extends CI_Controller {
     }else{
       redirect('laporan/get_laporan_by_id/'.$data['report_id']);
     }
+  }
+
+  public function get_laporan_by_user_id($user_id)
+  {
+    is_logged_in();
+    $data = [
+      'title' => 'Laporan Karyawan',
+      'lap_emp' => $this->laporan->getLaporanByUserId($user_id),
+    ];  
+    $this->load->view('templates/header',$data);
+    $this->load->view('laporan-per-emp',$data);
+    $this->load->view('templates/footer');
   }
 
 

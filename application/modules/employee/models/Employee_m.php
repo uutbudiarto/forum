@@ -6,6 +6,7 @@ class Employee_m extends CI_Model {
   {
     $this->db->select('
       users.id,
+      users.role_id,
       users.email,
       users.phone,
       users.fullname,
@@ -20,6 +21,7 @@ class Employee_m extends CI_Model {
   {
     $this->db->select('
       users.id,
+      users.role_id,
       users.email,
       users.phone,
       users.fullname,

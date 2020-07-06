@@ -120,6 +120,30 @@ class Laporan_m extends CI_Model {
       return $this->db->get()->row();
   }
 
+
+  public function getLaporanByUserId($user_id)
+  {
+    $this->db->select('
+    reports.id as report_id,
+    users.fullname,
+    users.image as user_image,
+    reports.report_text,
+    reports.report_image,
+    reports.report_file,
+    reports.time_created,
+    reports.count_comment,
+    reports.is_active,
+    reports.is_owner_readed,
+    reports.is_manager_readed,
+    ');
+    $this->db->from('reports');
+    $this->db->join('users','users.id = reports.user_id');
+    $this->db->where('reports.user_id',$user_id);
+    $this->db->where('reports.is_active',1);
+    $this->db->order_by('reports.time_created','DESC');
+    return $this->db->get()->result();
+  }
+
   public function getCommentByReportId($report_id)
   {
     $this->db->select('
@@ -156,6 +180,8 @@ class Laporan_m extends CI_Model {
       redirect('laporan/get_laporan_by_id/'.$data['report_id'].'#_9090');
     }
   }
+
+
 
 
   // filter report

@@ -30,4 +30,18 @@ class Employee extends CI_Controller {
     $this->load->view('detail',$data);
     $this->load->view('templates/footer');
   }
+  public function filter_user($user_id = null)
+  {
+    is_logged_in();
+    if($user_id === null){
+      return 0;
+    }else{
+      $emp = [$this->employee->getEmpById($user_id)];
+      if ($emp) {
+        echo json_encode($emp);
+      }else{
+        return false;
+      }
+    }
+  }
 }
