@@ -25,7 +25,7 @@
         <span class="d-block"><?=$emp->position_name; ?></span>
       </div>
     </div>
-    <?php if($this->session->userdata('role_id') != 3) : ?>
+    <?php if($this->session->userdata('role_id') != 4) : ?>
       <?php if($this->session->userdata('email') != $emp->email) : ?>
       <div class="text-right m-2">
         <a href="<?=base_url('laporan/get_laporan_by_user_id/').$emp->id?>" class="btn btn-sm btn-success"><i class="fas fa-file-alt"></i> Laporan</a>
@@ -61,7 +61,7 @@
                 <span class="d-block">${d.position_name}</span>
               </div>
             </div>
-            <?php if($this->session->userdata('role_id') != 3) : ?>
+            <?php if($this->session->userdata('role_id') != 4) : ?>
               <?php if($this->session->userdata('email') != $emp->email) : ?>
               <div class="text-right m-2">
               <a href="<?=base_url('laporan/get_laporan_by_user_id/')?>${d.id}" class="btn btn-sm btn-success"><i class="fas fa-file-alt"></i> Laporan</a>

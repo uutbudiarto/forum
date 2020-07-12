@@ -2,7 +2,7 @@
 :root{
   --primary:rgb(155, 127, 6);
   --secondary:rgb(216, 216, 216);
-  --light:rgb(252, 252, 252);
+  --light:rgb(235, 221, 162);
   --gold:rgb(155, 115, 6);
 }
 
@@ -136,14 +136,14 @@ span.file-name{
   box-sizing: content-box;
 }
 .comment-self{
-  background-color: rgb(245, 253, 255);
+  background-color: rgb(241, 241, 241);
   color: var(--dark);
   border-radius: 0 20px 20px 20px;
   margin-left: 10px;
   border-left: 6px solid rgb(0, 162, 255);
 }
 .comment-other{
-  background-color: rgb(243, 239, 255);
+  background-color: rgb(255, 254, 198);
   color: var(--dark);
   border-radius: 20px 0 20px 20px;
   margin-right: 10px;
@@ -312,8 +312,8 @@ span.file-name{
     text-align: center;
   }
   .menu-item .menu-link img{
-    width: 28px;
-    height: 28px;
+    width: 24px;
+    height: 24px;
     padding:4px;
     border-radius: 3px;
     transition: ease all .3s;

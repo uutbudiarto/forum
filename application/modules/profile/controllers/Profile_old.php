@@ -9,85 +9,34 @@ class Profile extends CI_Controller {
     $this->load->model('Profile_m','profile');
   }
   public function index()
-  {  
-    is_logged_in();
+  {
+      is_logged_in();
       $data = [
         'title' => 'Profile',
         'profile' => $this->profile->getMyProfile(),
-        // 'myreport' => $this->profile->getMyReport()->result(),
+        'myreport' => $this->profile->getMyReport()->result(),
         // 'countreport' => $this->profile->getMyReport()->num_rows(),
       ];
       $this->load->view('templates/header',$data);
       $this->load->view('index',$data);
       $this->load->view('templates/footer');
   }
-  public function get_report_by_user_id()
+
+  public function count_report()
   {
-    $report = $this->profile->getMyReport()->result();
-    if($report){
-      foreach ($report as $rpt ) {
-        $rptText = substr($rpt->report_text,0,15);
-        if($rpt->count_comment > 0){
-          $cm = $rpt->count_comment;
-        }else{
-          $cm = '';
-        }
-        if($rpt->count_comment_user == 0 && $rpt->count_comment >0){
-          $cm_user = 'ada tanggapan baru';
-        }else{
-          $cm_user = '';
-        }
-        echo '
-        <div class="col-6 p-1">
-          <div class="card shadow border-0">
-            <div class="card-body">
-              <p class="card-text">'.$rptText.'...</p>
-              <small class="d-block text-muted mb-3">'.date('l d m Y',$rpt->time_created).'</small>
-                <div class="d-flex justify-content-end align-items-center">
-                  <a href="'.base_url().'report/detail_report/'.$rpt->report_id.'" class="btn btn-primary btn-sm ml-2">'.$cm.' <i class="fas fa-comment"></i></a>
-                </div>
-                <small class="text-danger text-right d-block" style="position: absolute; bottom:3px;left:20px;">'.$cm_user.'</small>
-            </div>
-          </div>
-        </div>
-        ';
-      }
-    }
-  }
-  public function get_all_report_by_user_id()
-  {
-    $report = $this->profile->getAllMyReport()->result();
-    if($report){
-      foreach ($report as $rpt ) {
-        $rptText = substr($rpt->report_text,0,15);
-        if($rpt->count_comment > 0){
-          $cm = $rpt->count_comment;
-        }else{
-          $cm = '';
-        }
-        if($rpt->count_comment_user == 0 && $rpt->count_comment >0){
-          $cm_user = 'ada tanggapan baru';
-        }else{
-          $cm_user = '';
-        }
-        echo '
-        <div class="list-group list-group-flush w-100">
-          <a href="'.base_url().'report/detail_report/'.$rpt->report_id.'" class="list-group-item border-bottom list-group-item-action d-flex justify-content-between">
-            <div class="left">
-              <span class="d-block">'.$rptText.'...</span>
-              <small class="text-secondary">'.date('l d m Y',$rpt->time_created).'</small>
-            </div>
-            <div class="right">
-              <span class="d-block">'.$cm.' Komentar</span>
-              <small class="text-danger">'.$cm_user.'</small>
-            </div>
-          </a>
-        </div>
-        ';
-      }
+    $countreport = $this->profile->getMyCountReport();
+    if($countreport){
+      echo json_encode($countreport);
     }
   }
 
+  public function get_all_myrepoert()
+  {
+    $allmyreport = $this->profile->getAllMyReport();
+    if($allmyreport){
+      echo json_encode($allmyreport);
+    }
+  }
 
 
 

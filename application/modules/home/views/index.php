@@ -74,7 +74,11 @@
   <?php if($an->ann_id != $ann[0]->ann_id) : ?>
   <?php if($an->time_exp >  time()) : ?>
     <div class="list-group m-2">
-      <a href="#" class="list-group-item border-0 shadow-sm list-group-item-action">
+      <a href="#" class="list-group-item border-0 shadow-sm list-group-item-action list-ann" data-toggle="modal" data-target="#show_ann"
+      data-judul="<?=$an->ann_title?>"
+      data-isi="<?=$an->ann_text?>"
+      data-tanggal="<?=$an->time_created?>"
+      data-pembuat="<?=$an->fullname?>">
         <div class="d-flex w-100 justify-content-between">
           <h5 class="mb-1"><?=$an->ann_title ?></h5>
           <small class="text-muted"><?=date('Y-m-d',$an->time_created); ?></small>
@@ -87,16 +91,56 @@
   <?php endif; ?>
   <?php endif; ?>
 <?php endforeach; ?>
+
+<!-- Modal -->
+<div class="modal slideInUp" id="show_ann">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Detail Pengumuman</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <h4 class="judul">-</h4>
+        <p class="isi">-</p>
+        <div class="text-right">
+          <small class="text-secondary d-block tanggal">-</small>
+          <span class="pembuat">-</span>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-sm btn-primary" data-dismiss="modal">Tutup</button>
+      </div>
+    </div>
+  </div>
+</div>
+
 <script type="text/javascript">
+
+$('.list-ann').on('click',function () {
+  const judul = $(this).data('judul');
+  const isi = $(this).data('isi');
+  const time = $(this).data('tanggal');
+  const pembuat = $(this).data('pembuat');
+
+  const tanggal = new Date(time * 1000).toUTCString();
+
+  $('.modal-body .judul').html(judul)
+  $('.modal-body .isi').html(isi)
+  $('.modal-body .tanggal').html(tanggal)
+  $('.modal-body .pembuat').html(pembuat)
+})
+
+
 
 function detail_emp(user_id) {
   window.location.href = '<?=base_url('employee/detail/')?>'+user_id;
 }
-
 function load_replay_chat(chat_root_id){
   window.location.href = '<?=base_url('chat/load_reply_chat/')?>'+chat_root_id;
 }
-
 function getChatRoot() {
   $.ajax({
     url: '<?=base_url()?>home/get_chat_root/',
@@ -135,9 +179,6 @@ function getChatRoot() {
     }
   })
 }
-
-
-
 function get_chat_fa(){
   $.ajax({
     url:'<?=base_url()?>home/get_chat_fa/',
@@ -164,8 +205,6 @@ setInterval(() => {
 get_chat_fa()
 getChatRoot();  
 }, 1000);
-
-
 $('document').ready(function () {
   $('.box-all-users').slick({
   dots: false,

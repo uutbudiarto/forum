@@ -22,7 +22,7 @@ class Auth_m extends CI_Model
         if (password_verify($data['password'],$row->row()->password)) {
 
           // cek user role
-          if($row->row()->role_id == 3){
+          if($row->row()->role_id == 4){
             $this->db->where('is_active',1);
             $menu = $this->db->get_where('menus',['role_id' => $row->row()->role_id])->result();
           }else{

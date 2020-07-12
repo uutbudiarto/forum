@@ -17,16 +17,12 @@
       </small>
     </div>
     <div class="info-act d-flex justify-content-between align-items-center pr-2 mt-3">
-      <?php if($this->session->userdata('role_id') == 3) : ?>
-        <span id="_countMyReport" class="badge badge-success rounded-0"></span>
-      <?php endif; ?>
       <div class="act-group">
-      <?php if($this->session->userdata('role_id') != 3) : ?>
+      <?php if($this->session->userdata('role_id') != 4) : ?>
       <a href="<?=base_url('announcement/create/'); ?>" class="btn-edit-profile btn btn-sm btn-danger">
         <i class="fas fa-bullhorn"></i> Pengumuman
       </a>
       <?php endif; ?>
-
       <a href="<?=base_url('profile/edit/'); ?>" class="btn-edit-profile btn btn-sm btn-primary">
         <i class="fas fa-user-edit"></i>
       </a>
@@ -41,30 +37,26 @@
   </div>
 </div>
 
-<div class="report-box">
-  <?php foreach($myreport as $mr) : ?>
-    <div class="card-report">
-      <div class="trun-report p-2" style="height: 50px;">
-        <?php $rep = substr($mr->report_text,0 ,17);  ?>
-      </div>
-      <div class="card-report-body">
-        <p><?=$rep.'...'; ?></p>
-        <small class="text-secondary"><?=date('d-m-Y',$mr->time_created) ?></small>
-        <img src="<?=base_url('assets/img/report/').$mr->report_image; ?>" alt="">
-      </div>
-      <div class="card-report-layer"></div>
-      <div class="card-act-layer d-none">
-        <a href="<?=base_url('laporan/get_laporan_by_id/').$mr->report_id; ?>" class="text-white card-link">
-        <i class="fas fa-comment-alt"></i> <?=$mr->count_comment; ?>
-        </a>
-        <a href="<?=base_url('laporan/get_laporan_by_id/').$mr->report_id; ?>" class="text-white card-link">
-          <i class="fas fa-fw fa-info-circle"></i> Detail
-        </a>
+<div class="report-item-default row no-gutters">
+  <?php if($this->session->userdata('role_id') != 1) : ?>
+    <?php for($x = 0; $x < 4; $x++) : ?>
+      <div class="col-6 p-2">
+      <div class="card shadow zoomIn border-0">
+        <div class="card-body bg-white">
+          <div class="d-flex align-items-center justify-content-center">
+            <img class="rounded-circle" width="100px" height="100px" src="<?=base_url()?>assets/loader/3.gif" alt="">
+          </div>
+        </div>
       </div>
     </div>
-  <?php endforeach; ?>
-  <div class="text-center my-5 w-100"><button class="btn btn-primary" id="_getAllMyLaporan">Semua Laporanku</button></div>
+    <?php endfor; ?>
+  <?php endif; ?>
+  </div>
+  <div class="text-center py-3">
+    <button class="btn btn-sm btn-primary shadow" id="btnAllReport">Semua Laporan</button>
+  </div>
 </div>
+
 
 
 <!-- Modal -->
@@ -82,60 +74,33 @@
   </div>
 </div>
 <script type="text/javascript">
+  function getreport_by_user_id() {
+    $.ajax({
+      url : '<?=base_url()?>profile/get_report_by_user_id',
+      type:'GET',
+      success:function(result){
+        console.log(result);
+        $('.report-item-default').html(result);
+      }
+    })
+  }
+  function get_all_report_by_user_id() {
+    $.ajax({
+      url : '<?=base_url()?>profile/get_all_report_by_user_id',
+      type:'GET',
+      success:function(result){
+        console.log(result);
+        $('.report-item-default').html(result);
+      }
+    })
+  }
 
-    function countMyReport() {
-      $.ajax({
-        url: '<?=base_url()?>profile/count_report/',
-        success:function (res){
-          if(res){
-          let countReport = `${res} laporan`;
-            $('#_countMyReport').html(countReport);
-          }
-        }
-      })
-    }
-    countMyReport();
-
-    function getAllMyReport() {
-      $.ajax({
-        url : '<?=base_url()?>profile/get_all_myrepoert/',
-        success : function (res) {
-          let html = '';
-          if (res) {
-            const data = JSON.parse(res);
-            console.log(data);
-            
-            data.forEach(d => {
-            html += `
-            <div class="item-rpt p-2 border-bottom w-100 d-flex justify-content-between align-items-center">
-              <div class="left">
-                <span class="d-block">
-                <b>${d.report_text.substring(0,15)}</b>...
-                </span>
-                <small class="d-block text-secondary">
-                  ${new Date(d.time_created*1000).toUTCString()}
-                </small>
-              </div>
-              <a href="<?=base_url('laporan/get_laporan_by_id/')?>${d.report_id}" class="btn btn-sm btn-primary"><i class="fas fa-comment"></i></a>
-            </div>
-            `;
-            });
-            $('.report-box').html(html);
-          }
-        }
-      })
-    }
-
-  $('#_getAllMyLaporan').on('click',function () {
-    getAllMyReport()
+  $('#btnAllReport').on('click',function () {
+    clearInterval(interval);
+    get_all_report_by_user_id();
   })
-
-  $('.card-report').on('mouseenter',function(){
-    $(this).find('.card-report-layer').addClass('show');
-    $(this).find('.card-act-layer').removeClass('d-none');
-  })
-  $('.card-report').on('mouseleave',function(){
-    $(this).find('.card-report-layer').removeClass('show');
-    $(this).find('.card-act-layer').addClass('d-none');
-  })
+  getreport_by_user_id()
+  let interval = setInterval(() => {
+    getreport_by_user_id()
+  }, 1000);
 </script>

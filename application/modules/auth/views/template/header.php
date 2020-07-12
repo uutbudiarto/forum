@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
+  <meta name="theme-color" content="#9B7F06"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Login | FORUM</title>
   <link rel="shortcut icon" href="<?=base_url('assets/icons/favicon.jpeg') ?>" type="image/x-icon">

@@ -30,8 +30,7 @@ class Profile_m extends CI_Model {
     reports.time_created,
     reports.count_comment,
     reports.is_active,
-    reports.is_owner_readed,
-    reports.is_manager_readed,
+    reports.count_comment_user
     ');
     $this->db->from('reports');
     $this->db->join('users','users.id = reports.user_id');
@@ -55,15 +54,14 @@ class Profile_m extends CI_Model {
     reports.time_created,
     reports.count_comment,
     reports.is_active,
-    reports.is_owner_readed,
-    reports.is_manager_readed,
+    reports.count_comment_user
     ');
     $this->db->from('reports');
     $this->db->join('users','users.id = reports.user_id');
     $this->db->where('user_id',$userId);
     $this->db->where('reports.is_active',1);
     $this->db->order_by('reports.time_created','DESC');
-    return $this->db->get()->result();
+    return $this->db->get();
   }
   public function getMyCountReport()
   {

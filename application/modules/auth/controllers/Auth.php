@@ -76,7 +76,7 @@ class Auth extends CI_Controller {
         'fullname' => $this->input->post('fullname',true),
         'image' => 'default.png',
         'position_id' => 9,
-        'role_id' => 3,
+        'role_id' => 4,
         'date_created' => date('Y/m/d',time()),
         'created_at' => time(),
         'updated_at' => time(),

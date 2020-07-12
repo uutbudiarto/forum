@@ -76,11 +76,6 @@ class Laporan extends CI_Controller {
     }
   }
 
-  // public function create()
-  // {
-  //   echo 'OK';
-  // }
-
 
 
   public function get_laporan()
