@@ -44,7 +44,7 @@ class Profile extends CI_Controller {
               <p class="card-text">'.$rptText.'...</p>
               <small class="d-block text-muted mb-3">'.date('l d m Y',$rpt->time_created).'</small>
                 <div class="d-flex justify-content-end align-items-center">
-                  <a href="'.base_url().'report/detail_report/'.$rpt->report_id.'" class="btn btn-primary btn-sm ml-2">'.$cm.' <i class="fas fa-comment"></i></a>
+                  <a href="'.base_url().'report/detail_report/'.$rpt->report_id.'" class="btn btn-gold btn-sm ml-2 btnResetUserNotif" data-report_id='.$rpt->report_id.'>'.$cm.' <i class="fas fa-comment"></i></a>
                 </div>
                 <small class="text-danger text-right d-block" style="position: absolute; bottom:3px;left:20px;">'.$cm_user.'</small>
             </div>
@@ -85,6 +85,16 @@ class Profile extends CI_Controller {
         </div>
         ';
       }
+    }
+  }
+
+
+
+  public function reset_notif_report($reportId)
+  {
+    $result = $this->profile->resetNotifByProfileForAdmin($reportId);
+    if($result){
+      echo 1;
     }
   }
 

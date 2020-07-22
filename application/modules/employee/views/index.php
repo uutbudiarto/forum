@@ -17,27 +17,26 @@
 
 <div id="box-user">
   <?php foreach($employee as $emp) : ?>
-    <div class="media">
-      <img width="80" height="80" src="<?=base_url('assets/img/profile/').$emp->image;?>" class="m-2 rounded-circle">
-      <div class="media-body">
-        <h5 class="mt-0"><?=$emp->fullname; ?></h5>
-        <span class="d-block"><?=$emp->phone; ?></span>
-        <span class="d-block"><?=$emp->position_name; ?></span>
+    <div class="media border-bottom align-items-center">
+      <img src="<?=base_url('assets/img/profile/').$emp->image;?>" class="m-2 rounded-circle employe-item-img">
+      <div class="media-body employe-item">
+        <h6 class="mt-0 name"><?=$emp->fullname; ?></h6>
+        <span class="d-block phone"><?=$emp->phone; ?></span>
+        <span class="d-block position"><?=$emp->position_name; ?></span>
       </div>
-    </div>
-    <?php if($this->session->userdata('role_id') != 4) : ?>
-      <?php if($this->session->userdata('email') != $emp->email) : ?>
-      <div class="text-right m-2">
-        <a href="<?=base_url('laporan/get_laporan_by_user_id/').$emp->id?>" class="btn btn-sm btn-success"><i class="fas fa-file-alt"></i> Laporan</a>
-        <a href="<?=base_url('chat/index/'.$emp->id); ?>" class="btn btn-primary btn-sm"><i class="fas fa-comment-alt"></i> Chat</a>
-      </div>
-      <?php else : ?>
+      <?php if($this->session->userdata('role_id') != 4) : ?>
+        <?php if($this->session->userdata('email') != $emp->email) : ?>
         <div class="text-right m-2">
-          <button class="btn btn-secondary btn-sm" disabled><i class="fas fa-comment-alt"></i> Chat</button>
+          <a href="<?=base_url('laporan/get_laporan_by_user_id/').$emp->id?>" class="btn btn-sm btn-dark"><i class="fas fa-file-alt"></i></a>
+          <a href="<?=base_url('chat/index/'.$emp->id); ?>" class="btn btn-gold btn-sm"><i class="fas fa-comment-alt"></i></a>
         </div>
+        <?php else : ?>
+          <div class="text-right m-2">
+            <button class="btn btn-secondary btn-sm" disabled><i class="fas fa-comment-alt"></i> Chat</button>
+          </div>
+        <?php endif; ?>
       <?php endif; ?>
-    <?php endif; ?>
-    <hr>
+    </div>
   <?php endforeach; ?>
 </div>
 

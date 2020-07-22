@@ -19,11 +19,11 @@
     <div class="info-act d-flex justify-content-between align-items-center pr-2 mt-3">
       <div class="act-group">
       <?php if($this->session->userdata('role_id') != 4) : ?>
-      <a href="<?=base_url('announcement/create/'); ?>" class="btn-edit-profile btn btn-sm btn-danger">
+      <a href="<?=base_url('announcement/create/'); ?>" class="btn-edit-profile btn btn-sm btn-dark">
         <i class="fas fa-bullhorn"></i> Pengumuman
       </a>
       <?php endif; ?>
-      <a href="<?=base_url('profile/edit/'); ?>" class="btn-edit-profile btn btn-sm btn-primary">
+      <a href="<?=base_url('profile/edit/'); ?>" class="btn-edit-profile btn btn-sm btn-gold">
         <i class="fas fa-user-edit"></i>
       </a>
       <a href="<?=base_url('profile/change_password/'); ?>" class="btn-edit-profile btn btn-sm border">
@@ -53,7 +53,7 @@
   <?php endif; ?>
   </div>
   <div class="text-center py-3">
-    <button class="btn btn-sm btn-primary shadow" id="btnAllReport">Semua Laporan</button>
+    <button class="btn btn-sm btn-gold shadow" id="btnAllReport">Semua Laporan</button>
   </div>
 </div>
 
@@ -74,12 +74,26 @@
   </div>
 </div>
 <script type="text/javascript">
+
+  $('.report-item-default').on('click','.btnResetUserNotif',function (e) {
+    e.preventDefault()
+    const reportId = $(this).data('report_id');
+    $.ajax({
+      url:'<?=base_url()?>profile/reset_notif_report/'+reportId,
+      success:function(result){
+        if(result){
+          window.location.href='<?=base_url()?>report/detail_report/'+reportId;
+        }
+      }
+    })
+  })
+
+
   function getreport_by_user_id() {
     $.ajax({
       url : '<?=base_url()?>profile/get_report_by_user_id',
       type:'GET',
       success:function(result){
-        console.log(result);
         $('.report-item-default').html(result);
       }
     })
@@ -96,11 +110,15 @@
   }
 
   $('#btnAllReport').on('click',function () {
-    clearInterval(interval);
+    clearInterval(interval);  
     get_all_report_by_user_id();
+    let intervalAll = setInterval(() => {
+    get_all_report_by_user_id();
+  }, 1000);
   })
+
   getreport_by_user_id()
   let interval = setInterval(() => {
     getreport_by_user_id()
-  }, 1000);
+  }, 100000);
 </script>

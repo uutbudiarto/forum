@@ -11,26 +11,26 @@
 </div>
 
 <div id="box_char_root">
-<?php foreach ($chat_root as $cr) : ?>
-  <div class="chat-by p-2" onclick='load_replay_chat(<?=$cr->chat_root_id?>)'>
-    <div class="row no-gutters align-items-center">
-      <div class="col-3 col-md-2">
-        <img width="50" height="50" class="rounded-circle" src="<?=base_url('assets/img/profile/').$cr->image?>" alt="">
-      </div>
-      <div class="col-6 col-md-7">
-        <p><?=$cr->from ?></p>
-        <small><?=$cr->position_name ?></small>
-      </div>
-      <div class="col-3 col-md-3 text-center">
-        <small class="text-danger">
-          <?php if($cr->count_chat_adm > 0) : ?>
-            <?=$cr->count_chat_adm; ?> pesan belum dibaca
-          <?php endif; ?>
-        </small>
+  <?php foreach ($chat_root as $cr) : ?>
+    <div class="chat-by p-2" onclick='load_replay_chat(<?=$cr->chat_root_id?>)'>
+      <div class="row no-gutters align-items-center">
+        <div class="col-3 col-md-2">
+          <img width="50" height="50" class="rounded-circle" src="<?=base_url('assets/img/profile/').$cr->image?>" alt="">
+        </div>
+        <div class="col-6 col-md-7">
+          <p><?=$cr->from ?></p>
+          <small><?=$cr->position_name ?></small>
+        </div>
+        <div class="col-3 col-md-3 text-center">
+          <small class="text-danger">
+            <?php if($cr->count_chat_adm > 0) : ?>
+              <?=$cr->count_chat_adm; ?> pesan belum dibaca
+            <?php endif; ?>
+          </small>
+        </div>
       </div>
     </div>
-  </div>
-<?php endforeach; ?>
+  <?php endforeach; ?>
 </div>
 
 <div class="row no-gutters justify-content-end">
@@ -47,79 +47,51 @@
     </div>
   </div>
 </div>
-
-<?php if($ann) : ?>
-  <div class="news-new">
-    <div class="my-alert rounded-0 shadow mx-2 mt-3 alert-dismissible show" role="alert">
-      <h5 class="text-center text-white">
-        <span class="badge bg-white text-<?=$ann[0]->urgency?> rounded-0 pr-3 mr-2 py-2 float-left" style="clip-path: polygon(0% 0%, 75% 0%, 100% 50%, 75% 100%, 0% 100%); font-weight: 400; font-size: 16px;">Terbaru</span>
-        <i class="fas fa-bullhorn"></i> PENGUMUMAN</h5>
-      <strong class="text-white"><?=$ann[0]->ann_title; ?></strong>
-      <button type="button" class="close text-white" data-dismiss="alert" aria-label="Close">
-        <span aria-hidden="true">&times;</span>
-      </button>
-      <div class="text-an text-white">
-        <?=$ann[0]->ann_text; ?>
-      </div>
-      <div class="text-white mt-5">
-        <span>TTD</span>
-        <p><?=date('Y-m-d',$ann[0]->time_created); ?></p>
-        <span><?=$ann[0]->fullname; ?></span>
-      </div>
-    </div>
-  </div>
-<?php endif; ?>
-
-<?php foreach($ann as $an) : ?>
-  <?php if($an->ann_id != $ann[0]->ann_id) : ?>
-  <?php if($an->time_exp >  time()) : ?>
-    <div class="list-group m-2">
-      <a href="#" class="list-group-item border-0 shadow-sm list-group-item-action list-ann" data-toggle="modal" data-target="#show_ann"
-      data-judul="<?=$an->ann_title?>"
-      data-isi="<?=$an->ann_text?>"
-      data-tanggal="<?=$an->time_created?>"
-      data-pembuat="<?=$an->fullname?>">
-        <div class="d-flex w-100 justify-content-between">
-          <h5 class="mb-1"><?=$an->ann_title ?></h5>
-          <small class="text-muted"><?=date('Y-m-d',$an->time_created); ?></small>
-        </div>
-        <?php $rep = substr($an->ann_text,0 ,30);  ?>
-        <p><?=$rep.'...'; ?></p>
-        <small class="text-muted"><?=$an->fullname; ?></small>
-      </a>
-    </div>
-  <?php endif; ?>
-  <?php endif; ?>
-<?php endforeach; ?>
+<div class="news-new">
+  <ul class="list-group list-group-flush">
+  <li class="list-group-item py-3 d-flex justify-content-center">
+    <?php $this->load->view('templates/loader'); ?>
+  </li>
+</ul>
+</div>
+<div class="list-group m-2 old-news"></div>
 
 <!-- Modal -->
 <div class="modal slideInUp" id="show_ann">
   <div class="modal-dialog modal-dialog-centered">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Detail Pengumuman</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <h4 class="judul">-</h4>
-        <p class="isi">-</p>
-        <div class="text-right">
-          <small class="text-secondary d-block tanggal">-</small>
-          <span class="pembuat">-</span>
-        </div>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-sm btn-primary" data-dismiss="modal">Tutup</button>
-      </div>
+    <div class="modal-content" id="modal_cont">
+      <!-- THIS FOR CONTENT -->
     </div>
   </div>
 </div>
 
 <script type="text/javascript">
+function detail_ann(detail_id) {
+  $('#modal_cont').load('<?=base_url()?>home/load_detail_ann/'+detail_id,function () {
+    $('#show_ann').modal('show');
+  })
+}
 
-$('.list-ann').on('click',function () {
+
+function get_new_ann() {
+  $.ajax({
+    url: '<?=base_url()?>home/get_new_ann/',
+    success: function (result) {
+      $('.news-new').html(result);
+    }
+  })
+}
+
+function get_old_ann() {
+  $.ajax({
+    url: '<?=base_url()?>home/get_old_ann/',
+    success: function (result) {
+      $('.old-news').html(result);
+    }
+  })
+}
+
+$('document').on('click','.list-ann',function () {
   const judul = $(this).data('judul');
   const isi = $(this).data('isi');
   const time = $(this).data('tanggal');
@@ -199,12 +171,16 @@ function get_chat_fa(){
     }
   })
 }
+get_old_ann()
 get_chat_fa()
-getChatRoot();
+getChatRoot()
+get_new_ann()
 setInterval(() => {
+get_old_ann()
 get_chat_fa()
-getChatRoot();  
-}, 1000);
+getChatRoot()
+get_new_ann()  
+}, 2000);
 $('document').ready(function () {
   $('.box-all-users').slick({
   dots: false,
@@ -216,8 +192,8 @@ $('document').ready(function () {
     {
       breakpoint: 1024,
       settings: {
-        slidesToShow: 3,
-        slidesToScroll: 3,
+        slidesToShow: 5,
+        slidesToScroll: 5,
         infinite: true,
         dots: false
       }
@@ -225,15 +201,15 @@ $('document').ready(function () {
     {
       breakpoint: 600,
       settings: {
-        slidesToShow: 3,
-        slidesToScroll: 3
+        slidesToShow: 4,
+        slidesToScroll: 4
       }
     },
     {
       breakpoint: 480,
       settings: {
-        slidesToShow: 3,
-        slidesToScroll: 3,
+        slidesToShow: 4,
+        slidesToScroll: 4,
       }
     }
   ]

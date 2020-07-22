@@ -158,4 +158,18 @@ class Profile_m extends CI_Model {
       redirect('profile/change_password');
     }
   }
+
+
+  public function resetNotifByProfileForAdmin($reportId)
+  {
+    $report = $this->db->get_where('reports',['id'=>$reportId])->row();
+    if($this->session->userdata('user_id') == $report->user_id){
+      $this->db->set('count_comment_user',1);
+      $this->db->where('id',$report->id);
+      $this->db->update('reports');
+      if($this->db->affected_rows() > 0){
+        return true;
+      }
+    }
+  }
 }

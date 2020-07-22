@@ -20,6 +20,7 @@ class Announcement_m extends CI_Model {
     $this->db->join('users','users.id = announcement.user_id');
     $this->db->where('announcement.is_active',1);
     $this->db->order_by('announcement.time_created','DESC');
+    $this->db->limit(3);
     return $this->db->get()->result();
   }
 

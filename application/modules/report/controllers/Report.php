@@ -12,6 +12,7 @@ class Report extends CI_Controller {
     is_logged_in();
     $data = [
       'title' => 'Report',
+      'emp' => $this->report->getEmp()
     ];
     $this->load->view('templates/header',$data);
     $this->load->view('index',$data);
@@ -20,10 +21,59 @@ class Report extends CI_Controller {
   public function get_report()
   {
     $reports = $this->report->getAllReport();
-    echo '<pre>';
-    //print_r($reports);
-    echo '</pre>';
+    $this->_report($reports);
+  }
+  public function search_report()
+  {
+    $keyword = $this->input->post('keyword',true);
+    $reports = $this->report->seachReport($keyword);
+    $this->_report($reports);
+  }
+  public function filter_report_by_user($emp_id = null)
+  {
+    if($emp_id === null){
+      $reports = $this->report->getAllReport();
+    }else{
+      $reports = $this->report->getReportByUser($emp_id);
+    }
+    $this->_report($reports);
+  }
 
+  public function get_report_by_date()
+  {
+    $date = [
+      'start_date' => $this->input->post('start_date',true),
+      'end_date' => $this->input->post('end_date',true)
+    ];
+    if($date === null){
+      $reports = $this->report->getAllReport();
+      if ($reports) {
+        $this->_report($reports);
+      }
+    }else{
+      $reports = $this->report->getReportByDate($date);
+      if($reports){
+      }
+    }
+    $this->_report($reports);
+  }
+
+
+  public function detail_report($report_id)
+  {
+    is_logged_in();
+    $data = [
+      'title' => 'Report',
+      'dtl_report' => $this->report->getReportById($report_id)
+    ];    
+    $this->load->view('templates/header',$data);
+    $this->load->view('detail_report',$data);
+    $this->load->view('templates/footer');
+  }
+
+
+  private function _report($reports)
+  {
     if($reports){
       foreach ($reports as $rpt) {
         // KONDISI ADMIN BACA LAPORAN
@@ -55,25 +105,25 @@ class Report extends CI_Controller {
         //KONDISI BACA KOMEN
         if($this->session->userdata('role_id') == 1){
           if($rpt->count_comment_owner == 0){
-            $baca_komen = 'ada tanggapan baru';
+            $baca_komen = '<span class="mb-2 mr-1" style="width: 15px; height: 15px; display: inline-block; border-radius:100px; background-color:rgb(34, 252, 6);"></span> <span class="mb-2">ada pesan baru</span>';
           }else{
             $baca_komen = '';
           }
         }else if($this->session->userdata('role_id') == 2){
           if($rpt->count_comment_manager == 0){
-            $baca_komen = 'ada tanggapan baru';
+            $baca_komen = '<span class="mb-2 mr-1" style="width: 15px; height: 15px; display: inline-block; border-radius:100px; background-color:rgb(34, 252, 6);"></span> <span class="mb-2">ada pesan baru</span>';
           }else{
             $baca_komen = '';
           }
         }else if($this->session->userdata('role_id') == 3){
           if($rpt->count_comment_manager2 == 0){
-            $baca_komen = 'ada tanggapan baru';
+            $baca_komen = '<span class="mb-2 mr-1" style="width: 15px; height: 15px; display: inline-block; border-radius:100px; background-color:rgb(34, 252, 6);"></span> <span class="mb-2">ada pesan baru</span>';
           }else{
             $baca_komen = ''; 
           }
         }else{
           if($rpt->count_comment_user == 0){
-            $baca_komen = 'ada tanggapan baru';
+            $baca_komen = '<span class="mb-2 mr-1" style="width: 15px; height: 15px; display: inline-block; border-radius:100px; background-color:rgb(34, 252, 6);"></span> <span class="mb-2">ada pesan baru</span>';
           }else{
             $baca_komen = ''; 
           }
@@ -96,7 +146,7 @@ class Report extends CI_Controller {
               <small class="text-muted">'.date('d-m-Y',$rpt->time_created).'</small>
             </div>
             <div class="d-flex justify-content-between p-2">
-              <small class="text-danger"> <b>'.$baca_komen.'</b> </small>
+              <small class="text-danger"> <b class="d-flex align-items-center">'.$baca_komen.'</b> </small>
               <a href="javascript:void(0)" class="btn btn-primary rounded btn-sm btnReadReport" data-id="'.$rpt->report_id.'">
               <i class="fas fa-comment"></i>
               <span class="badge badge-sucsess">'.$rpt->count_comment.'</span>
@@ -115,17 +165,6 @@ class Report extends CI_Controller {
       ';
     }
   }
-  public function detail_report($report_id)
-  {
-    is_logged_in();
-    $data = [
-      'title' => 'Report',
-      'dtl_report' => $this->report->getReportById($report_id)
-    ];    
-    $this->load->view('templates/header',$data);
-    $this->load->view('detail_report',$data);
-    $this->load->view('templates/footer');
-  }
   
   public function create()
   {
@@ -140,6 +179,7 @@ class Report extends CI_Controller {
       'report_image' => 'default.png',
       'report_file' => 'default.txt',
       'time_created' => time(),
+      'time_updated' => time(),
       'created_at' => date('Y-m-d',time()),
       'updated_at' => date('Y-m-d',time()),
       'is_active' => 1,

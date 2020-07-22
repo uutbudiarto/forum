@@ -4,7 +4,9 @@
   --secondary:rgb(216, 216, 216);
   --light:rgb(235, 221, 162);
   --gold:rgb(155, 115, 6);
+  --green: rgb(34, 252, 6);
 }
+
 
 .news-new .my-alert{
   background-color: var(--gold) !important;
@@ -81,6 +83,11 @@ button.close:focus
 .btn:hover
 {
   box-shadow: none;
+}
+
+.btn.btn-gold{
+  background-color: var(--gold);
+  color: #fff;
 }
 
 
@@ -181,6 +188,20 @@ span.file-name{
 
 
 @media (min-width: 320px) {
+
+  /* LIST EMPLOYEE */
+  .employe-item-img{
+    width: 60px;
+  }
+  .employe-item .name{
+    font-size: 16px;
+  }
+  .employe-item .phone{
+    font-size: 14px;
+  }
+  .employe-item .position{
+    font-size: 12px;
+  }
 
   .main-nav
   {
@@ -468,6 +489,8 @@ span.file-name{
   /* SLICK HOME */
   .box-all-users{
     border-bottom: 1px solid #DDD;
+    height: 105px;
+    overflow: hidden;
   }
   .box-all-users .box-user{
     display: flex;
@@ -480,8 +503,8 @@ span.file-name{
 
 
   .box-all-users .box-user img{
-    width: 80px;
-    height: 80px;
+    width: 55px;
+    height: 55px;
     border: 2px solid var(--primary);
     border-radius: 100px;
     transition: all ease-in .2s;
